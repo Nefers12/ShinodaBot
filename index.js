@@ -1,5 +1,6 @@
 const { Client, Message, Collection } = require('discord.js');
-const dotenv = require('dotenv'); dotenv.config();
+const dotenv = require('dotenv');const { readSync } = require('fs');
+ dotenv.config();
 const client = new Client({ intents: 513 });
 
 client.commands = new Collection();
