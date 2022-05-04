@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-
 module.exports = {
     name: 'unmute',
     permissions: ['MODERATE_MEMBERS'],
@@ -18,6 +16,7 @@ module.exports = {
         if(!user.isCommunicationDisabled()) return interaction.reply({content:'Ce membre n\'est pas mute',ephemeral:true});
 
         user.timeout(null);
+        user.send('Vous avez été unmute');
         interaction.reply({content:`<@${user.id}> a été unmute`,ephemeral:true});
 
     }

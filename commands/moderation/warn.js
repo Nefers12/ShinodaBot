@@ -1,17 +1,17 @@
 const { Infraction } = require('../../db/models/index');
 
 module.exports = {
-    name: 'ban',
+    name: 'warn',
     permissions: ['BAN_MEMBERS'],
-    description : 'Bannis un utilisateur',
+    description : 'Warn un utilisateur',
     options : [{
         name:'pseudo',
-        description : 'Pseudo de l\'utilisateur à bannir',
+        description : 'Pseudo de l\'utilisateur à warn',
         type : 'USER',
         required: true,
     },{
         name:'raison',
-        description : 'raison du ban',
+        description : 'raison du warn',
         type : 'STRING',
         required: true,
     }],
@@ -20,14 +20,14 @@ module.exports = {
         const user = interaction.options.getMember('pseudo');
 
         if(!user) return interaction.reply('Veuillez mentionner un utilisateur valide');
-        if(!user.bannable) return interaction.reply('Je ne peux pas bannir cet utilisateur');
+        if(!user.bannable) return interaction.reply('Je ne peux pas warn cet utilisateur');
 
         var count = await Infraction.countDocuments({ userID: user.id });
 
         const infractionCreate = await new Infraction({
             index: `${user.id}${count + 1}`,
             userID: user.id,
-            type: 'BAN',
+            type: 'WARN',
             timeStamp: Date.now(),
             reason: raison,
             reportedBy: interaction.user.id,
@@ -35,9 +35,8 @@ module.exports = {
 
         infractionCreate.save();
 
-        user.send(`Vous avez été banni du serveur **Shinoda** pour la raison suivante : ${raison}`);
-        interaction.reply({content:`<@${user.id}> a été banni pour la raison suivante : ${raison}`,ephemeral:true});
-        user.ban({reason: raison});
+        user.send(`Vous avez été warn sur le serveur **Shinoda** pour la raison suivante : ${raison}`);
+        interaction.reply({content:`<@${user.id}> a été warn pour la raison suivante : ${raison}`,ephemeral:true});
 
     }
 
