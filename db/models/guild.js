@@ -10,6 +10,7 @@ const guildSchema = new Schema({
 		join: String,
 		candidature: String,
 		tickets: String,
+		boost: String,
 	},
 	plugins:{
 		playerTickets:{
