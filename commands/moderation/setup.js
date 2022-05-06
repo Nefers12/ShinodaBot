@@ -1,5 +1,5 @@
 const { Guild } = require('../../db/models/index');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, MessageActionRow, MessageButton  } = require('discord.js');
 
 module.exports = {
     name: "setup",
@@ -42,6 +42,36 @@ module.exports = {
                     name: "boost",
                     description: "Boost channel",
                     type: 7
+                },
+                {
+                    name: "playerticketcategory",
+                    description: "playerTicket Category",
+                    type: 7
+                },
+                {
+                    name: "closedplayerticketcategory",
+                    description: "closedPlayerTicket Category",
+                    type: 7
+                },
+                {
+                    name: "staffticketcategory",
+                    description: "staffTicket Category",
+                    type: 7
+                },
+                {
+                    name: "closedstaffticketcategory",
+                    description: "staffclosedStaffTicket Category",
+                    type: 7
+                },
+                {
+                    name: "supportticketcategory",
+                    description: "supportTicket Category",
+                    type: 7
+                },
+                {
+                    name: "closedsupportticketcategory",
+                    description: "closedSupportTicket Category",
+                    type: 7
                 }
             ]
         },{
@@ -52,21 +82,21 @@ module.exports = {
                 {
                     name: "playertickets",
                     description: "playerTickets",
-                    type: 7
+                    type: 5
                 },
                 {
                     name: "stafftickets",
                     description: "staffTickets",
-                    type: 7
+                    type: 5
                 },                {
                     name: "supporttickets",
                     description: "supportTickets",
-                    type: 7
+                    type: 5
                 },
                 {
                     name: "antiraid",
                     description: "antiRaid",
-                    type: 7
+                    type: 5
                 }
             ]
         }
@@ -74,6 +104,7 @@ module.exports = {
     runSlash: async (client, interaction) => {
 
         let module = 0;
+        const guild = await Guild.findOne({ guildId: interaction.guild.id });
 
         for(i in interaction.options._hoistedOptions){
             switch(interaction.options._hoistedOptions[i].name){
@@ -94,84 +125,147 @@ module.exports = {
 
     switch(module){
         case 0:
-        const guild = await Guild.findOne({ guildId: interaction.guild.id });
+        
         const chan = interaction.options._hoistedOptions;
-        const guildCreate = await new Guild({
-            guildId: interaction.guild.id,
-            channels: {
-                logs: '',
-                question: '',
-                suggestion: '',
-                join: '',
-                candidature: '',
-                tickets: '',
-                boost: '',
-            }
-        });
 
         for(i in chan){
-
-            switch (chan[i].name) {
+            switch (chan[i].name){
                 case "logs":
-                    if(guild)guild.channels.logs = chan[i].value;
-                    guildCreate.channels.logs = chan[i].value;
+                    guild.channels.logs = chan[i].value;
                     break;
                 case "question":
-                    if(guild)guild.channels.question = chan[i].value;
-                    guildCreate.channels.question = chan[i].value;
+                    guild.channels.question = chan[i].value;
                     break;
                 case "suggestion":
-                    if(guild)guild.channels.suggestion = chan[i].value;
-                    guildCreate.channels.suggestion = chan[i].value;
+                    guild.channels.suggestion = chan[i].value;
                     break;
                 case "join":
-                    if(guild)guild.channels.join = chan[i].value;
-                    guildCreate.channels.join = chan[i].value;
+                    guild.channels.join = chan[i].value;
                     break;
                 case "candidature":
-                    if(guild)guild.channels.candidature = chan[i].value;
-                    guildCreate.channels.candidature = chan[i].value;
+                    guild.channels.candidature = chan[i].value;
                     break;
                 case "tickets":
-                    if(guild)guild.channels.tickets = chan[i].value;
-                    guildCreate.channels.tickets = chan[i].value;
+                    guild.channels.tickets = chan[i].value;
                     break;
                 case "boost":
-                    if(guild)guild.channels.boost = chan[i].value;
-                    guildCreate.channels.boost = chan[i].value;
+                    guild.channels.boost = chan[i].value;
+                    break;
+                case "playerticketcategory":
+                    guild.plugins.playerTickets.playerTicketCategory = chan[i].value;
+                    break;
+                case "closedplayerticketcategory":
+                    guild.plugins.playerTickets.closedPlayerTicketCategory = chan[i].value;
+                    break;
+                case "staffticketcategory":
+                    guild.plugins.staffTickets.staffTicketCategory = chan[i].value;
+                    break;
+                case "closedstaffticketcategory":
+                    guild.plugins.staffTickets.closedStaffTicketCategory = chan[i].value;
+                    break;
+                case "supportticketcategory":
+                    guild.plugins.supportTickets.supportTicketCategory = chan[i].value;
+                    break;
+                case "closedsupportticketcategory":
+                    guild.plugins.supportTickets.closedSupportTicketCategory = chan[i].value;
                     break;
             }
             
         }
 
-        if(!guild){
-
-            guildCreate.save();
-
-            const setupEmbed = new MessageEmbed()
-                .setColor('RANDOM')
-                .setTitle(`Liste des channels`)
-                .setDescription(`Logs: <#${guildCreate.channels.logs}> \nQuestion: <#${guildCreate.channels.question}> \nSuggestion: <#${guildCreate.channels.suggestion}> \nJoin: <#${guildCreate.channels.join}> \nCandidature: <#${guildCreate.channels.candidature}> \nTickets: <#${guildCreate.channels.tickets}> \nBoost: <#${guildCreate.channels.boost}>`)
-
-            interaction.reply({embeds: [setupEmbed]});
-
-        }else{
-
             guild.save();
 
-            const setupEmbed = new MessageEmbed()
+            const setupChanEmbed = new MessageEmbed()
                 .setColor('RANDOM')
                 .setTitle(`Liste des channels`)
-                .setDescription(`Logs: <#${guild.channels.logs}> \nQuestion: <#${guild.channels.question}> \nSuggestion: <#${guild.channels.suggestion}> \nJoin: <#${guild.channels.join}> \nCandidature: <#${guild.channels.candidature}> \nTickets: <#${guild.channels.tickets}> \nBoost: <#${guild.channels.boost}>`)
+                .setDescription(`Logs: <#${guild.channels.logs}> \nQuestion: <#${guild.channels.question}> \nSuggestion: <#${guild.channels.suggestion}> \nJoin: <#${guild.channels.join}> \nCandidature: <#${guild.channels.candidature}> \nTickets: <#${guild.channels.tickets}> \nBoost: <#${guild.channels.boost}> \nPlayerTicketCategory: <#${guild.plugins.playerTickets.playerTicketCategory}> \nClosedPlayerTicketCategory: <#${guild.plugins.playerTickets.closedPlayerTicketCategory}> \nStaffTicketCategory: <#${guild.plugins.staffTickets.staffTicketCategory}> \nClosedStaffTicketCategory: <#${guild.plugins.staffTickets.closedStaffTicketCategory}> \nSupportTicketCategory: <#${guild.plugins.supportTickets.supportTicketCategory}> \nClosedSupportTicketCategory: <#${guild.plugins.supportTickets.closedSupportTicketCategory}>`)
 
-            interaction.reply({embeds: [setupEmbed]});
+            interaction.reply({embeds: [setupChanEmbed], ephemeral: true});
+            
 
-        }
+        
 
         break;
 
         case 1:
-         console.log("plugin");
+
+            let chanToSend = '';
+            let dbTosend = '';
+            let candidMsg = '';
+
+            const plugin = interaction.options._hoistedOptions;
+    
+            for(i in plugin){
+                switch (plugin[i].name) {
+                    case "playertickets":
+                        chanToSend = guild.channels.candidature;
+                        dbTosend = 'playerTickets'
+                        candidMsg = 'Ticket de candidature RP'
+                        updateCandidMsg(guild,plugin[i],chanToSend,dbTosend,candidMsg);
+
+                    break;
+                    case "stafftickets":
+                        chanToSend = guild.channels.candidature;
+                        dbTosend = 'staffTickets'
+                        candidMsg = 'Ticket de candidature Staff'
+                        updateCandidMsg(guild,plugin[i],chanToSend,dbTosend,candidMsg);
+                    break;
+                    case "supporttickets":
+                        chanToSend = guild.channels.tickets;
+                        dbTosend = 'supportTickets';
+                        candidMsg = 'Contacter le Support'
+                        updateCandidMsg(guild,plugin[i],chanToSend,dbTosend,candidMsg);
+                    break;
+                    case "antiraid":
+                        guild.plugins.antiRaid.enable = plugin[i].value;
+                    break;
+                }
+                
+            }
+
+            async function updateCandidMsg(guild,plugin,chanToSend,dbTosend,candidMsg){
+
+                if(plugin.value == guild.plugins[dbTosend].enabled)return;
+
+                const row = new MessageActionRow()
+                    .addComponents(
+				        new MessageButton()
+					        .setCustomId(`${plugin.name}`)
+					        .setLabel('📩')
+					        .setStyle('PRIMARY'));
+
+
+                const ticketEmbed = new MessageEmbed()
+                .setColor('RANDOM')
+                .setTitle(`${candidMsg}`)
+                .setDescription(`Pour créer un ticket réagis avec 📩`)
+
+
+                guild.plugins[dbTosend].enabled = plugin.value;
+                if(plugin.value){
+                    interaction.guild.channels.cache.get(chanToSend).send({embeds: [ticketEmbed], components: [row]})
+                    .then(m => {
+                        guild.plugins[dbTosend].messageID = `${m.id}`;
+                        guild.save();
+                });
+                }else{
+                    msg = await interaction.guild.channels.cache.get(chanToSend).messages.cache.get(guild.plugins[dbTosend].messageID);
+                    await msg.delete();
+
+                    guild.plugins[dbTosend].messageID = '';
+                }
+
+            }
+
+            guild.save();
+
+            let setupPlugEmbed = new MessageEmbed()
+                .setColor('RANDOM')
+                .setTitle(`Statut des pluggins`)
+                .setDescription(`PlayerTickets: ${guild.plugins.playerTickets.enabled ? ":white_check_mark:" : ":x: "} \nStaffTickets: ${guild.plugins.staffTickets.enabled ? ":white_check_mark:" : ":x: "} \nSupportTickets: ${guild.plugins.supportTickets.enabled ? ":white_check_mark:" : ":x: "} \nAntiRaid: ${guild.plugins.antiRaid.enable ? ":white_check_mark:" : ":x: "}`)
+
+            interaction.reply({embeds: [setupPlugEmbed], ephemeral: true});
+
         break;
         
     }
