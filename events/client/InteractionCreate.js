@@ -15,5 +15,17 @@ module.exports = {
             cmd.runSlash(client, interaction);
         }
 
+        if(interaction.isButton()){
+
+            switch(interaction.customId){
+                case 'playertickets':
+                    break;
+                case 'stafftickets':
+                    break;
+                case 'supporttickets':
+                    break;
+            }
+                
+        }
     }
 }

@@ -4,6 +4,7 @@ const { MessageEmbed, MessageActionRow, MessageButton  } = require('discord.js')
 module.exports = {
     name: "setup",
     description: "setup the guild",
+    permissions: ['BAN_MEMBERS'],
     options: [
         {
             name: "channels",
@@ -201,20 +202,20 @@ module.exports = {
                         chanToSend = guild.channels.candidature;
                         dbTosend = 'playerTickets'
                         candidMsg = 'Ticket de candidature RP'
-                        updateCandidMsg(guild,plugin[i],chanToSend,dbTosend,candidMsg);
+                        await updateCandidMsg(guild,plugin[i],chanToSend,dbTosend,candidMsg);
 
                     break;
                     case "stafftickets":
                         chanToSend = guild.channels.candidature;
                         dbTosend = 'staffTickets'
                         candidMsg = 'Ticket de candidature Staff'
-                        updateCandidMsg(guild,plugin[i],chanToSend,dbTosend,candidMsg);
+                        await updateCandidMsg(guild,plugin[i],chanToSend,dbTosend,candidMsg);
                     break;
                     case "supporttickets":
                         chanToSend = guild.channels.tickets;
                         dbTosend = 'supportTickets';
                         candidMsg = 'Contacter le Support'
-                        updateCandidMsg(guild,plugin[i],chanToSend,dbTosend,candidMsg);
+                        await updateCandidMsg(guild,plugin[i],chanToSend,dbTosend,candidMsg);
                     break;
                     case "antiraid":
                         guild.plugins.antiRaid.enable = plugin[i].value;
@@ -249,9 +250,8 @@ module.exports = {
                         guild.save();
                 });
                 }else{
-                    msg = await interaction.guild.channels.cache.get(chanToSend).messages.cache.get(guild.plugins[dbTosend].messageID);
-                    await msg.delete();
-
+                    msg = await interaction.guild.channels.cache.get(chanToSend).messages.fetch(guild.plugins[dbTosend].messageID);
+                    msg.delete();
                     guild.plugins[dbTosend].messageID = '';
                 }
 

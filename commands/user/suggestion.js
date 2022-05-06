@@ -1,8 +1,8 @@
 const { MessageEmbed } = require('discord.js');
+const { Guild } = require('../../db/models/index');
 
 module.exports = {
     name: 'suggestion',
-    channel: '963778312801517638',
     description : 'Créer un embed avec la suggestion',
     options : [{
         name:'suggestion',
@@ -11,6 +11,9 @@ module.exports = {
         required: true,
     }],
     runSlash: async (client, interaction) => {
+
+        const guild = await Guild.findOne({ guildId: interaction.guild.id });
+
         const suggestion = interaction.options.getString('suggestion');
 
         const suggestionEmbed = new MessageEmbed()
@@ -19,7 +22,9 @@ module.exports = {
 	        .setDescription(suggestion)
 	        .setTimestamp()
 
-        interaction.reply({embeds: [suggestionEmbed]});
+            interaction.guild.channels.cache.get(guild.channels.suggestion).send({embeds: [suggestionEmbed]});
+
+            interaction.reply({content :'Votre suggestion a bien été envoyée !', ephemeral: true});
 
     }
 }
