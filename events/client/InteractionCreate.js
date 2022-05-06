@@ -19,8 +19,6 @@ module.exports = {
 
         if(interaction.isButton()){
 
-
-
             let dbToUse =[];
             let row='';
             let textToDisplay = '';
@@ -28,14 +26,12 @@ module.exports = {
             const rowTicket = new MessageActionRow()
             .addComponents(
                 new MessageButton()
-                    .setCustomId(`Close`)
                     .setLabel('Fermer le ticket')
                     .setStyle('DANGER'));
 
             const rowPlayerTicket = new MessageActionRow()
             .addComponents(
                     new MessageButton()
-                        .setCustomId(`Close`)
                         .setLabel('Fermer le ticket')
                         .setStyle('DANGER'),
                         new MessageButton()
@@ -44,30 +40,72 @@ module.exports = {
                         .setStyle('SUCCESS'));
 
 
-
-
-
             const guild = await Guild.findOne({ guildId: interaction.guild.id });
 
             switch(interaction.customId){
                 case 'playertickets':
                     dbToUse = ['playerTickets','playerTicketCategory'];
                     row = rowPlayerTicket;
+                    row.components[0].setCustomId(`Closeplayertickets`)
                     textToDisplay = `Voici ton ticket, c'est ici que tu dois poster ta candidature qui sera examinée par notre équipe. Si tu as des questions n'hésite pas à les poser ici, un staff va te répondre dès que possible.\n\nSi tu veux fermer ton ticket, tu peux le faire à tout moment en cliquant sur le bouton ci-dessous.`;
                     createTicket(guild,dbToUse,row,textToDisplay)
                     break;
                 case 'stafftickets':
                     dbToUse = ['staffTickets','staffTicketCategory'];
                     row = rowTicket;
+                    row.components[0].setCustomId(`Closestafftickets`)
                     textToDisplay = `Voici ton ticket, c'est ici que tu dois poster ta candidature qui sera examinée par notre équipe. Si tu as des questions n'hésite pas à les poser ici, un staff va te répondre dès que possible.\n\nSi tu veux fermer ton ticket, tu peux le faire à tout moment en cliquant sur le bouton ci-dessous.`;
                     createTicket(guild,dbToUse,row,textToDisplay)
                     break;
                 case 'supporttickets':
                     dbToUse = ['supportTickets','supportTicketCategory'];
                     row = rowTicket;
+                    row.components[0].setCustomId(`Closesupporttickets`)
                     textToDisplay = `Voici ton ticket, c'est ici que tu dois faire ta demande qui sera examinée par notre équipe. Si tu as des questions n'hésite pas à les poser ici, un staff va te répondre dès que possible.\n\nSi tu veux fermer ton ticket, tu peux le faire à tout moment en cliquant sur le bouton ci-dessous.`;
                     createTicket(guild,dbToUse,row,textToDisplay)
                     break;
+                case 'demanderp':
+                        dbToUse = ['demandeRP','demandeRPCategory'];
+                        row = rowTicket;
+                        row.components[0].setCustomId(`Closedemanderp`)
+                        textToDisplay = `Voici ton ticket, c'est ici que tu dois faire ta demande RP qui sera examinée par notre équipe. Si tu as des questions n'hésite pas à les poser ici, un staff va te répondre dès que possible.\n\nSi tu veux fermer ton ticket, tu peux le faire à tout moment en cliquant sur le bouton ci-dessous.`;
+                        createTicket(guild,dbToUse,row,textToDisplay)
+                        break;
+                case 'Closeplayertickets':
+                    row = rowPlayerTicket;
+                    row.components[0].setDisabled(true)
+                    row.components[0].setCustomId('Closedisabled')
+                    row.components[1].setDisabled(true)
+                    row.components[1].setCustomId('Wldisabled')
+                    closeTicket(row)
+                    break;
+                case 'Closestafftickets':
+                    row = rowTicket;
+                    row.components[0].setDisabled(true)
+                    row.components[0].setCustomId('Closedisabled')
+                    closeTicket(row)
+                    break;
+                case 'Closesupporttickets':
+                    row = rowTicket;
+                    row.components[0].setDisabled(true)
+                    row.components[0].setCustomId('Closedisabled')
+                    closeTicket(row)
+                    break;
+                case 'Closedemanderp':
+                    row = rowTicket;
+                    row.components[0].setDisabled(true)
+                    row.components[0].setCustomId('Closedisabled')
+                    closeTicket(row)
+            }
+
+            async function closeTicket(row){
+
+                const ticketEmbed = new MessageEmbed()
+                .setColor('RANDOM')
+                .setDescription(`${interaction.message.embeds[0].description}`)
+                .setAuthor({ name : interaction.message.embeds[0].author.name,iconURL: interaction.message.embeds[0].author.iconURL})
+                interaction.channel.setParent(guild.channels.closedTicketsCategory);
+                interaction.message.edit({ embeds:[ticketEmbed],components: [row] });
             }
 
             async function createTicket(guild,dbToUse,row,textToDisplay){
@@ -86,9 +124,6 @@ module.exports = {
                         },
                     ],
                 }).then(async (channel) => {
-                    
-
-
                     const ticketEmbed = new MessageEmbed()
                     .setColor('RANDOM')
                     .setAuthor({name: `Ticket de ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL()})

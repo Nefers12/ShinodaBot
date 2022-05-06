@@ -38,7 +38,10 @@ module.exports = {
                             joinDate: Date.now(),
                             messagesCount: 0,
                             numberOfJoin: 1,
-                            invites: 0
+                            invites: 0,
+                            ticketStaff: 0,
+                            ticketPlayer: 0,
+                            ticketSupport: 0,
                         });
                 
                         userCreate.save();
@@ -60,7 +63,10 @@ module.exports = {
                         joinDate: Date.now(),
                         messagesCount: 0,
                         numberOfJoin: 1,
-                        invites: 0
+                        invites: 0,
+                        ticketStaff: 0,
+                        ticketPlayer: 0,
+                        ticketSupport: 0,
                     });
             
                     userCreate.save();

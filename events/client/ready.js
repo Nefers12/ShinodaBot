@@ -22,6 +22,7 @@ module.exports = {
                 candidature: '',
                 tickets: '',
                 boost: '',
+                closedTicketsCategory: '',
             },
             plugins:{
                 playerTickets:{

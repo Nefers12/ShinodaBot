@@ -50,18 +50,8 @@ module.exports = {
                     type: 7
                 },
                 {
-                    name: "closedplayerticketcategory",
-                    description: "closedPlayerTicket Category",
-                    type: 7
-                },
-                {
                     name: "staffticketcategory",
                     description: "staffTicket Category",
-                    type: 7
-                },
-                {
-                    name: "closedstaffticketcategory",
-                    description: "staffclosedStaffTicket Category",
                     type: 7
                 },
                 {
@@ -70,8 +60,13 @@ module.exports = {
                     type: 7
                 },
                 {
-                    name: "closedsupportticketcategory",
-                    description: "closedSupportTicket Category",
+                    name: "demanderpcategory",
+                    description: "DemandeRP Category",
+                    type: 7
+                },
+                {
+                    name: "closedticketscategory",
+                    description: "closedTickets Category",
                     type: 7
                 }
             ]
@@ -89,16 +84,22 @@ module.exports = {
                     name: "stafftickets",
                     description: "staffTickets",
                     type: 5
-                },                {
+                },
+                {
                     name: "supporttickets",
                     description: "supportTickets",
+                    type: 5
+                },
+                {
+                    name: "demanderp",
+                    description: "demanderp",
                     type: 5
                 },
                 {
                     name: "antiraid",
                     description: "antiRaid",
                     type: 5
-                }
+                },
             ]
         }
     ],
@@ -116,6 +117,9 @@ module.exports = {
                     module = 1;
                 break;
                 case "supporttickets":
+                    module = 1;
+                break;
+                case "demanderp":
                     module = 1;
                 break;
                 case "antiraid":
@@ -155,20 +159,17 @@ module.exports = {
                 case "playerticketcategory":
                     guild.plugins.playerTickets.playerTicketCategory = chan[i].value;
                     break;
-                case "closedplayerticketcategory":
-                    guild.plugins.playerTickets.closedPlayerTicketCategory = chan[i].value;
-                    break;
                 case "staffticketcategory":
                     guild.plugins.staffTickets.staffTicketCategory = chan[i].value;
-                    break;
-                case "closedstaffticketcategory":
-                    guild.plugins.staffTickets.closedStaffTicketCategory = chan[i].value;
                     break;
                 case "supportticketcategory":
                     guild.plugins.supportTickets.supportTicketCategory = chan[i].value;
                     break;
-                case "closedsupportticketcategory":
-                    guild.plugins.supportTickets.closedSupportTicketCategory = chan[i].value;
+                case "closedticketscategory":
+                    guild.channels.closedTicketsCategory = chan[i].value;
+                    break;
+                case "demanderpcategory":
+                    guild.plugins.demandeRP.demandeRPCategory = chan[i].value;
                     break;
             }
             
@@ -179,7 +180,7 @@ module.exports = {
             const setupChanEmbed = new MessageEmbed()
                 .setColor('RANDOM')
                 .setTitle(`Liste des channels`)
-                .setDescription(`Logs: <#${guild.channels.logs}> \nQuestion: <#${guild.channels.question}> \nSuggestion: <#${guild.channels.suggestion}> \nJoin: <#${guild.channels.join}> \nCandidature: <#${guild.channels.candidature}> \nTickets: <#${guild.channels.tickets}> \nBoost: <#${guild.channels.boost}> \nPlayerTicketCategory: <#${guild.plugins.playerTickets.playerTicketCategory}> \nClosedPlayerTicketCategory: <#${guild.plugins.playerTickets.closedPlayerTicketCategory}> \nStaffTicketCategory: <#${guild.plugins.staffTickets.staffTicketCategory}> \nClosedStaffTicketCategory: <#${guild.plugins.staffTickets.closedStaffTicketCategory}> \nSupportTicketCategory: <#${guild.plugins.supportTickets.supportTicketCategory}> \nClosedSupportTicketCategory: <#${guild.plugins.supportTickets.closedSupportTicketCategory}>`)
+                .setDescription(`Logs: <#${guild.channels.logs}> \nQuestion: <#${guild.channels.question}> \nSuggestion: <#${guild.channels.suggestion}> \nJoin: <#${guild.channels.join}> \nCandidature: <#${guild.channels.candidature}> \nTickets: <#${guild.channels.tickets}> \nBoost: <#${guild.channels.boost}> \nPlayerTicketCategory: <#${guild.plugins.playerTickets.playerTicketCategory}> \nStaffTicketCategory: <#${guild.plugins.staffTickets.staffTicketCategory}> \nSupportTicketCategory: <#${guild.plugins.supportTickets.supportTicketCategory}> \nClosedTicketsCategory: <#${guild.channels.closedTicketsCategory}> \nDemandeRPCategory: <#${guild.plugins.demandeRP.demandeRPCategory}>`)
 
             interaction.reply({embeds: [setupChanEmbed], ephemeral: true});
             
@@ -215,6 +216,12 @@ module.exports = {
                         chanToSend = guild.channels.tickets;
                         dbTosend = 'supportTickets';
                         candidMsg = 'Contacter le Support'
+                        await updateCandidMsg(guild,plugin[i],chanToSend,dbTosend,candidMsg);
+                    break;
+                    case "demanderp":
+                        chanToSend = guild.channels.tickets;
+                        dbTosend = 'demandeRP';
+                        candidMsg = 'Faire une demande RP'
                         await updateCandidMsg(guild,plugin[i],chanToSend,dbTosend,candidMsg);
                     break;
                     case "antiraid":

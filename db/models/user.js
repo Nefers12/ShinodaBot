@@ -9,6 +9,9 @@ const userSchema = new Schema({
 	MinecraftUser: String,
 	numberOfJoin: Number,
 	invites: Number,
+	ticketStaff: Number,
+	ticketPlayer: Number,
+	ticketSupport: Number,
 
 });
 
