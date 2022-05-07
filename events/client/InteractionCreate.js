@@ -1,5 +1,5 @@
 const dotenv = require('dotenv'); dotenv.config();
-const { Guild } = require('../../db/models/index');
+const { Guild, User} = require('../../db/models/index');
 const { MessageEmbed, MessageActionRow, MessageButton  } = require('discord.js');
 
 module.exports = {
@@ -22,6 +22,7 @@ module.exports = {
             let dbToUse =[];
             let row='';
             let textToDisplay = '';
+            let type ='';
 
             const rowTicket = new MessageActionRow()
             .addComponents(
@@ -41,35 +42,41 @@ module.exports = {
 
 
             const guild = await Guild.findOne({ guildId: interaction.guild.id });
+            const user = await User.findOne({ userId: interaction.user.id });
 
             switch(interaction.customId){
                 case 'playertickets':
                     dbToUse = ['playerTickets','playerTicketCategory'];
                     row = rowPlayerTicket;
                     row.components[0].setCustomId(`Closeplayertickets`)
+                    type = 'ticketPlayer';
                     textToDisplay = `Voici ton ticket, c'est ici que tu dois poster ta candidature qui sera examinée par notre équipe. Si tu as des questions n'hésite pas à les poser ici, un staff va te répondre dès que possible.\n\nSi tu veux fermer ton ticket, tu peux le faire à tout moment en cliquant sur le bouton ci-dessous.`;
-                    createTicket(guild,dbToUse,row,textToDisplay)
+                    dbUpdate(user,type,guild,dbToUse,row,textToDisplay);
+
                     break;
                 case 'stafftickets':
                     dbToUse = ['staffTickets','staffTicketCategory'];
+                    type = 'ticketStaff';
                     row = rowTicket;
                     row.components[0].setCustomId(`Closestafftickets`)
                     textToDisplay = `Voici ton ticket, c'est ici que tu dois poster ta candidature qui sera examinée par notre équipe. Si tu as des questions n'hésite pas à les poser ici, un staff va te répondre dès que possible.\n\nSi tu veux fermer ton ticket, tu peux le faire à tout moment en cliquant sur le bouton ci-dessous.`;
-                    createTicket(guild,dbToUse,row,textToDisplay)
+                    dbUpdate(user,type,guild,dbToUse,row,textToDisplay);
                     break;
                 case 'supporttickets':
                     dbToUse = ['supportTickets','supportTicketCategory'];
+                    type = 'ticketSupport';
                     row = rowTicket;
                     row.components[0].setCustomId(`Closesupporttickets`)
                     textToDisplay = `Voici ton ticket, c'est ici que tu dois faire ta demande qui sera examinée par notre équipe. Si tu as des questions n'hésite pas à les poser ici, un staff va te répondre dès que possible.\n\nSi tu veux fermer ton ticket, tu peux le faire à tout moment en cliquant sur le bouton ci-dessous.`;
-                    createTicket(guild,dbToUse,row,textToDisplay)
+                    dbUpdate(user,type,guild,dbToUse,row,textToDisplay);
                     break;
                 case 'demanderp':
                         dbToUse = ['demandeRP','demandeRPCategory'];
+                        type = 'ticketRP';
                         row = rowTicket;
                         row.components[0].setCustomId(`Closedemanderp`)
                         textToDisplay = `Voici ton ticket, c'est ici que tu dois faire ta demande RP qui sera examinée par notre équipe. Si tu as des questions n'hésite pas à les poser ici, un staff va te répondre dès que possible.\n\nSi tu veux fermer ton ticket, tu peux le faire à tout moment en cliquant sur le bouton ci-dessous.`;
-                        createTicket(guild,dbToUse,row,textToDisplay)
+                        dbUpdate(user,type,guild,dbToUse,row,textToDisplay);
                         break;
                 case 'Closeplayertickets':
                     row = rowPlayerTicket;
@@ -98,6 +105,29 @@ module.exports = {
                     closeTicket(row)
             }
 
+            async function dbUpdate(user,type,guild,dbToUse,row,textToDisplay){
+
+                let max = 0;
+                
+                switch(type){
+                    case 'ticketSupport':
+                        max = 3;
+                    break;
+                    default:
+                        max = 1;
+                    break;
+                }
+                if(user[type] == max){
+                    return interaction.reply({content : `Vous avez atteint le nombre maximum de ticket dans cette catégorie !`, ephemeral:true});
+                }else{
+                    interaction.reply({content : `Ticket créé`, ephemeral:true})
+                    createTicket(guild,dbToUse,row,textToDisplay)
+                    user[type] = +user[type] + 1;
+                    user.save();
+                }
+                
+            }
+
             async function closeTicket(row){
 
                 const ticketEmbed = new MessageEmbed()
@@ -106,6 +136,7 @@ module.exports = {
                 .setAuthor({ name : interaction.message.embeds[0].author.name,iconURL: interaction.message.embeds[0].author.iconURL})
                 interaction.channel.setParent(guild.channels.closedTicketsCategory);
                 interaction.message.edit({ embeds:[ticketEmbed],components: [row] });
+                interaction.reply({content: `Ticket fermé`, ephemeral:true});
             }
 
             async function createTicket(guild,dbToUse,row,textToDisplay){

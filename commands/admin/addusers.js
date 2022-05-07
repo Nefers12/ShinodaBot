@@ -42,6 +42,7 @@ module.exports = {
                             ticketStaff: 0,
                             ticketPlayer: 0,
                             ticketSupport: 0,
+                            ticketRP: 0,
                         });
                 
                         userCreate.save();
@@ -67,6 +68,7 @@ module.exports = {
                         ticketStaff: 0,
                         ticketPlayer: 0,
                         ticketSupport: 0,
+                        ticketRP: 0,
                     });
             
                     userCreate.save();
