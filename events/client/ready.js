@@ -1,5 +1,6 @@
 const dotenv = require('dotenv'); dotenv.config();
 const { Guild } = require('../../db/models/index');
+const { Cache } = require('../../index');
 
 module.exports = {
     name: 'ready',
@@ -50,6 +51,15 @@ module.exports = {
         });
 
         if(!guild)guildCreate.save();
+        else{
+            Cache.set( "guild", guild);
+            Cache.set( "channels", guild.channels);
+            Cache.set( "playerTickets", guild.plugins.playerTickets);
+            Cache.set( "staffTickets", guild.plugins.staffTickets);
+            Cache.set( "supportTickets", guild.plugins.supportTickets);
+            Cache.set( "demandeRP", guild.plugins.demandeRP);
+            Cache.set( "antiRaid", guild.plugins.antiRaid);
+        }
         
     }
     

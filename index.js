@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
  dotenv.config();
 const client = new Client({ intents: 515 });
 
+const NodeCache = require( "node-cache" );
+const Cache = new NodeCache();
+
 client.commands = new Collection();
 
 ['CommandUtil', 'EventUtil'].forEach(handler => { require(`./utils/handlers/${handler}`)(client) });
@@ -19,3 +22,7 @@ mongoose.connect(process.env.MONGO_URI, {
 }).then(() => console.log('Connecté à MongoDB')).catch(err => console.error(err));
 
 client.login(process.env.DISCORD_TOKEN);
+
+module.exports = {
+    Cache
+} 

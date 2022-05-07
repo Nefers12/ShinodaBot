@@ -1,19 +1,26 @@
 const dotenv = require('dotenv'); dotenv.config();
-const {banlist, serveur} = require('../../config/array.js')
+const {banlist, serveur} = require('../../config/array.js');
+const { Cache } = require('../../index');
+const { Guild } = require('../../db/models/index');
+const guild = require('../../db/models/guild.js');
 
 
 module.exports = {
     name: 'messageCreate',
     once : false,
-    execute(client, message) {
+    async execute(client, message) {
+
+        guild.channels = Cache.get( "channels" );
+        if(!guild){
+            guild = await Guild.findOne({ guildId: message.guild.id });
+            Cache.set( "channels", guild.channels);
+        };
+
         if(message.author.bot) return;
         if(message.channel.type === "DM") return;
 
-        let score=0;
-        let step=0;
 
-
-        if(message.channel != "963778312801517638" && message.content.includes('https://discord.gg/')) {
+        if(message.channel != guild.channels.partenariat && message.content.includes('https://discord.gg/')) {
             message.delete();
             message.channel.send(`${message.author} a tenté d'envoyer une invitation`);
         }
