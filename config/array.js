@@ -2432,5 +2432,5 @@ module.exports = {
 		"zguègu3",
 		"zguegue",
 		"zguègue",
-	],serveur:["ouvrir","ouvert","ouvre","ip","l'ip","serveur","serv","ouvrira","ouvrera","quand"]
+	],messagesCount:[]
 };

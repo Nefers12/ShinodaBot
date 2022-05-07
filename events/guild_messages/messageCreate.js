@@ -1,8 +1,9 @@
 const dotenv = require('dotenv'); dotenv.config();
-const {banlist, serveur} = require('../../config/array.js');
+var {banlist, messagesCount} = require('../../config/array.js');
 const { Cache } = require('../../index');
 const { Guild } = require('../../db/models/index');
 const guild = require('../../db/models/guild.js');
+
 
 
 module.exports = {
@@ -25,6 +26,13 @@ module.exports = {
             message.delete();
             message.guild.channels.cache.get(guild.channels.logs).send(`${message.author} a tenté d'envoyer une invitation`);
         }
+
+        if(!messagesCount[message.author.id]){
+            messagesCount[message.author.id] = 1;
+        }else{
+            messagesCount[message.author.id] = +messagesCount[message.author.id] + 1;
+        }
+
 
         for (let i in banlist) {
             let content = message.content.toLowerCase().replace(/\s/g, '');

@@ -1,5 +1,7 @@
 const dotenv = require('dotenv'); dotenv.config();
-const { Guild } = require('../../db/models/index');
+var {messagesCount} = require('../../config/array.js');
+const { Guild, User } = require('../../db/models/index');
+var user = require('../../db/models/user.js');
 const { Cache } = require('../../index');
 
 module.exports = {
@@ -66,7 +68,18 @@ module.exports = {
             Cache.set( "demandeRP", guild.plugins.demandeRP);
             Cache.set( "antiRaid", guild.plugins.antiRaid);
         }
+
+        setInterval(async () => {
+			for(i in messagesCount){
+                user = await User.findOne({ userId: i });
+                user.messagesCount = +user.messagesCount +messagesCount[i];
+                user.save()
+                delete messagesCount[i]
+            }
+		}, 3600000);
         
     }
+
+    
     
 }
