@@ -11,6 +11,7 @@ const guildSchema = new Schema({
 		candidature: String,
 		tickets: String,
 		boost: String,
+		partenariat: String,
 		closedTicketsCategory: String,
 	},
 	plugins:{

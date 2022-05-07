@@ -45,6 +45,11 @@ module.exports = {
                     type: 7
                 },
                 {
+                    name: "partenariat",
+                    description: "Partenariat channel",
+                    type: 7
+                },
+                {
                     name: "playerticketcategory",
                     description: "playerTicket Category",
                     type: 7
@@ -156,6 +161,9 @@ module.exports = {
                 case "boost":
                     guild.channels.boost = chan[i].value;
                     break;
+                case "partenariat":
+                    guild.channels.partenariat = chan[i].value;
+                    break;
                 case "playerticketcategory":
                     guild.plugins.playerTickets.playerTicketCategory = chan[i].value;
                     break;
@@ -180,7 +188,7 @@ module.exports = {
             const setupChanEmbed = new MessageEmbed()
                 .setColor('RANDOM')
                 .setTitle(`Liste des channels`)
-                .setDescription(`Logs: <#${guild.channels.logs}> \nQuestion: <#${guild.channels.question}> \nSuggestion: <#${guild.channels.suggestion}> \nJoin: <#${guild.channels.join}> \nCandidature: <#${guild.channels.candidature}> \nTickets: <#${guild.channels.tickets}> \nBoost: <#${guild.channels.boost}> \nPlayerTicketCategory: <#${guild.plugins.playerTickets.playerTicketCategory}> \nStaffTicketCategory: <#${guild.plugins.staffTickets.staffTicketCategory}> \nSupportTicketCategory: <#${guild.plugins.supportTickets.supportTicketCategory}> \nClosedTicketsCategory: <#${guild.channels.closedTicketsCategory}> \nDemandeRPCategory: <#${guild.plugins.demandeRP.demandeRPCategory}>`)
+                .setDescription(`Logs: <#${guild.channels.logs}> \nQuestion: <#${guild.channels.question}> \nSuggestion: <#${guild.channels.suggestion}> \nJoin: <#${guild.channels.join}> \nCandidature: <#${guild.channels.candidature}> \nTickets: <#${guild.channels.tickets}> \nBoost: <#${guild.channels.boost}> \nPartenariat: <#${guild.channels.partenariat}> \nPlayerTicketCategory: <#${guild.plugins.playerTickets.playerTicketCategory}> \nStaffTicketCategory: <#${guild.plugins.staffTickets.staffTicketCategory}> \nSupportTicketCategory: <#${guild.plugins.supportTickets.supportTicketCategory}> \nClosedTicketsCategory: <#${guild.channels.closedTicketsCategory}> \nDemandeRPCategory: <#${guild.plugins.demandeRP.demandeRPCategory}>`)
 
             interaction.reply({embeds: [setupChanEmbed], ephemeral: true});
             

@@ -1,6 +1,7 @@
 const dotenv = require('dotenv'); dotenv.config();
 const {banlist, serveur} = require('../../config/array.js')
 
+
 module.exports = {
     name: 'messageCreate',
     once : false,
@@ -23,22 +24,6 @@ module.exports = {
                 message.channel.send(`${message.author} a utilisé le mot interdit "${banlist[i]}" dans la phrase :  ` + "```" + `${message.content}` + "```")
                 message.delete();
 			}
-		}
-
-        for (let o in serveur) {
-            let cnt = message.content.toLowerCase().replace("?","").split(" ");
-
-            if(cnt.length < 2) return;
-
-            if (cnt.includes(serveur[o])){
-                score ++;
-			}
-
-            if(o/(serveur.length-1) == 1) {
-                    if(score >= 2) {
-                        message.channel.send("Le serveur est actuellement en cours de développement, mais ne vous inquétez pas nous vous avertirons dès qu'il sera disponible !");
-                    }
-            }
 		}
     },
 };
