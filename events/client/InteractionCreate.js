@@ -23,6 +23,7 @@ module.exports = {
             let row='';
             let textToDisplay = '';
             let type ='';
+            let id='';
 
             const rowTicket = new MessageActionRow()
             .addComponents(
@@ -79,30 +80,34 @@ module.exports = {
                         dbUpdate(user,type,guild,dbToUse,row,textToDisplay);
                         break;
                 case 'Closeplayertickets':
+                    type = 'ticketPlayer';
                     row = rowPlayerTicket;
                     row.components[0].setDisabled(true)
                     row.components[0].setCustomId('Closedisabled')
                     row.components[1].setDisabled(true)
                     row.components[1].setCustomId('Wldisabled')
-                    closeTicket(row)
+                    closeTicket(row,type)
                     break;
                 case 'Closestafftickets':
+                    type = 'ticketStaff';
                     row = rowTicket;
                     row.components[0].setDisabled(true)
                     row.components[0].setCustomId('Closedisabled')
-                    closeTicket(row)
+                    closeTicket(row,type)
                     break;
                 case 'Closesupporttickets':
+                    type = 'ticketSupport';
                     row = rowTicket;
                     row.components[0].setDisabled(true)
                     row.components[0].setCustomId('Closedisabled')
-                    closeTicket(row)
+                    closeTicket(row,type)
                     break;
                 case 'Closedemanderp':
+                    type = 'ticketRP';
                     row = rowTicket;
                     row.components[0].setDisabled(true)
                     row.components[0].setCustomId('Closedisabled')
-                    closeTicket(row)
+                    closeTicket(row,type)
             }
 
             async function dbUpdate(user,type,guild,dbToUse,row,textToDisplay){
@@ -128,7 +133,7 @@ module.exports = {
                 
             }
 
-            async function closeTicket(row){
+            async function closeTicket(row,type){
 
                 const ticketEmbed = new MessageEmbed()
                 .setColor('RANDOM')
@@ -137,12 +142,18 @@ module.exports = {
                 interaction.channel.setParent(guild.channels.closedTicketsCategory);
                 interaction.message.edit({ embeds:[ticketEmbed],components: [row] });
                 interaction.reply({content: `Ticket fermé`, ephemeral:true});
+
+                const usr = await User.findOne({ userId: interaction.channel.topic });
+                usr[type] = +usr[type] - 1;
+                usr.save();
+                interaction.channel.setTopic(null);
             }
 
             async function createTicket(guild,dbToUse,row,textToDisplay){
 
                 const channel = await interaction.guild.channels.create(`Ticket de ${interaction.user.username}`, {
                     type: 'text',
+                    topic:`${interaction.user.id}`,
                     parent: guild.plugins[dbToUse[0]][dbToUse[1]],
                     permissionOverwrites: [
                         {
