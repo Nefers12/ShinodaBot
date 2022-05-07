@@ -1,5 +1,6 @@
 const { Guild } = require('../../db/models/index');
 const { MessageEmbed, MessageActionRow, MessageButton  } = require('discord.js');
+const { Cache } = require('../../index');
 
 module.exports = {
     name: "setup",
@@ -184,6 +185,13 @@ module.exports = {
         }
 
             guild.save();
+            Cache.set("channels", guild.channels);
+            Cache.set( "playerTickets", guild.plugins.playerTickets);
+            Cache.set( "staffTickets", guild.plugins.staffTickets);
+            Cache.set( "supportTickets", guild.plugins.supportTickets);
+            Cache.set( "demandeRP", guild.plugins.demandeRP);
+            Cache.set( "antiRaid", guild.plugins.antiRaid);
+
 
             const setupChanEmbed = new MessageEmbed()
                 .setColor('RANDOM')

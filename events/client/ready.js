@@ -50,8 +50,14 @@ module.exports = {
             }
         });
 
-        if(!guild)guildCreate.save();
-        else{
+        if(!guild){
+            guildCreate.save();
+            cacheGuild(guildCreate);
+        }else{
+            cacheGuild(guild)
+        }
+
+        async function cacheGuild(guild) {
             Cache.set( "guild", guild);
             Cache.set( "channels", guild.channels);
             Cache.set( "playerTickets", guild.plugins.playerTickets);
