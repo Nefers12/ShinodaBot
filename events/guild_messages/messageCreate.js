@@ -10,19 +10,20 @@ module.exports = {
     once : false,
     async execute(client, message) {
 
+        if(message.author.bot) return;
+        if(message.channel.type === "DM") return;
+
+
         guild.channels = Cache.get( "channels" );
         if(!guild){
             guild = await Guild.findOne({ guildId: message.guild.id });
             Cache.set( "channels", guild.channels);
         };
 
-        if(message.author.bot) return;
-        if(message.channel.type === "DM") return;
-
 
         if(message.channel != guild.channels.partenariat && message.content.includes('https://discord.gg/')) {
             message.delete();
-            message.channel.send(`${message.author} a tenté d'envoyer une invitation`);
+            message.guild.channels.cache.get(guild.channels.logs).send(`${message.author} a tenté d'envoyer une invitation`);
         }
 
         for (let i in banlist) {
