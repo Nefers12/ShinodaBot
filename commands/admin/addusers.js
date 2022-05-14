@@ -3,7 +3,7 @@ const { User } = require('../../db/models/index');
 
 module.exports = {
     name: 'adduser',
-    permissions: ['BAN_MEMBERS'],
+    permissions: ['ADMINISTRATOR'],
     description : 'Emmet un event',
     options : [{
         name:'all',

@@ -4,7 +4,7 @@ const { Infraction } = require('../../db/models/index');
 
 module.exports = {
     name: 'mute',
-    permissions: ['MODERATE_MEMBERS'],
+    permissions: ['BAN_MEMBERS'],
     description : 'Mute un utilisateur',
     options : [{
         name:'pseudo',

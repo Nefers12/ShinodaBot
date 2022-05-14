@@ -1,6 +1,6 @@
 module.exports = {
     name: 'unmute',
-    permissions: ['MODERATE_MEMBERS'],
+    permissions: ['BAN_MEMBERS'],
     description : 'Unmute un utilisateur',
     options : [{
         name:'pseudo',

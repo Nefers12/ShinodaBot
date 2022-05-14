@@ -2,7 +2,7 @@ const { Infraction } = require('../../db/models/index');
 
 module.exports = {
     name: 'rl',
-    permissions: ['BAN_MEMBERS'],
+    permissions: ['ADMINISTRATOR'],
     description : 'Redemarre le bot',
 
     runSlash: async (client, interaction) => {

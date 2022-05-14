@@ -28,7 +28,7 @@ module.exports = {
             const infrac = await Infraction.findOne({ index: `${user.id}${i}` });
             infracEmbed.addField(
 				`Infraction n°${i}`,
-				`type : ${infrac.type} par <@${infrac.reportedBy}> \nle ${infrac.timeStamp.toUTCString().slice(0, -13)} à ${infrac.timeStamp.toUTCString().slice(17, 22)}\n Pour la raison "${infrac.reason}"`
+				`${infrac.type} par <@${infrac.reportedBy}> \nle ${infrac.timeStamp.toUTCString().slice(0, -13)} à ${infrac.timeStamp.toUTCString().slice(17, 22)}\n Pour la raison "${infrac.reason}"`
 			);
         }
 

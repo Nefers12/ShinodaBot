@@ -5,7 +5,7 @@ const { Cache } = require('../../index');
 module.exports = {
     name: "setup",
     description: "setup the guild",
-    permissions: ['BAN_MEMBERS'],
+    permissions: ['ADMINISTRATOR'],
     options: [
         {
             name: "channels",
@@ -74,7 +74,7 @@ module.exports = {
                     name: "closedticketscategory",
                     description: "closedTickets Category",
                     type: 7
-                }
+                },
             ]
         },{
             name: "pluggins",
@@ -107,6 +107,17 @@ module.exports = {
                     type: 5
                 },
             ]
+        },{
+            name: "roles",
+            description: "setup roles",
+            type: 1,
+            options: [
+                {
+                    name: "villageois",
+                    description: "role villageois",
+                    type: 8
+                },
+            ]
         }
     ],
     runSlash: async (client, interaction) => {
@@ -137,48 +148,51 @@ module.exports = {
     switch(module){
         case 0:
         
-        const chan = interaction.options._hoistedOptions;
+        const option = interaction.options._hoistedOptions;
 
-        for(i in chan){
-            switch (chan[i].name){
+        for(i in option){
+            switch (option[i].name){
                 case "logs":
-                    guild.channels.logs = chan[i].value;
+                    guild.channels.logs = option[i].value;
                     break;
                 case "question":
-                    guild.channels.question = chan[i].value;
+                    guild.channels.question = option[i].value;
                     break;
                 case "suggestion":
-                    guild.channels.suggestion = chan[i].value;
+                    guild.channels.suggestion = option[i].value;
                     break;
                 case "join":
-                    guild.channels.join = chan[i].value;
+                    guild.channels.join = option[i].value;
                     break;
                 case "candidature":
-                    guild.channels.candidature = chan[i].value;
+                    guild.channels.candidature = option[i].value;
                     break;
                 case "tickets":
-                    guild.channels.tickets = chan[i].value;
+                    guild.channels.tickets = option[i].value;
                     break;
                 case "boost":
-                    guild.channels.boost = chan[i].value;
+                    guild.channels.boost = option[i].value;
                     break;
                 case "partenariat":
-                    guild.channels.partenariat = chan[i].value;
+                    guild.channels.partenariat = option[i].value;
                     break;
                 case "playerticketcategory":
-                    guild.plugins.playerTickets.playerTicketCategory = chan[i].value;
+                    guild.plugins.playerTickets.playerTicketCategory = option[i].value;
                     break;
                 case "staffticketcategory":
-                    guild.plugins.staffTickets.staffTicketCategory = chan[i].value;
+                    guild.plugins.staffTickets.staffTicketCategory = option[i].value;
                     break;
                 case "supportticketcategory":
-                    guild.plugins.supportTickets.supportTicketCategory = chan[i].value;
+                    guild.plugins.supportTickets.supportTicketCategory = option[i].value;
                     break;
                 case "closedticketscategory":
-                    guild.channels.closedTicketsCategory = chan[i].value;
+                    guild.channels.closedTicketsCategory = option[i].value;
                     break;
                 case "demanderpcategory":
-                    guild.plugins.demandeRP.demandeRPCategory = chan[i].value;
+                    guild.plugins.demandeRP.demandeRPCategory = option[i].value;
+                    break;
+                case "villageois":
+                    guild.roles.villageois = option[i].value;
                     break;
             }
             
@@ -191,6 +205,7 @@ module.exports = {
             Cache.set( "supportTickets", guild.plugins.supportTickets);
             Cache.set( "demandeRP", guild.plugins.demandeRP);
             Cache.set( "antiRaid", guild.plugins.antiRaid);
+            Cache.set( "villageois", guild.roles.villageois);
 
 
             const setupChanEmbed = new MessageEmbed()
@@ -198,7 +213,12 @@ module.exports = {
                 .setTitle(`Liste des channels`)
                 .setDescription(`Logs: <#${guild.channels.logs}> \nQuestion: <#${guild.channels.question}> \nSuggestion: <#${guild.channels.suggestion}> \nJoin: <#${guild.channels.join}> \nCandidature: <#${guild.channels.candidature}> \nTickets: <#${guild.channels.tickets}> \nBoost: <#${guild.channels.boost}> \nPartenariat: <#${guild.channels.partenariat}> \nPlayerTicketCategory: <#${guild.plugins.playerTickets.playerTicketCategory}> \nStaffTicketCategory: <#${guild.plugins.staffTickets.staffTicketCategory}> \nSupportTicketCategory: <#${guild.plugins.supportTickets.supportTicketCategory}> \nClosedTicketsCategory: <#${guild.channels.closedTicketsCategory}> \nDemandeRPCategory: <#${guild.plugins.demandeRP.demandeRPCategory}>`)
 
-            interaction.reply({embeds: [setupChanEmbed], ephemeral: true});
+            const setupRolesEmbed = new MessageEmbed()
+                .setColor('RANDOM')
+                .setTitle(`Liste des roles`)
+                .setDescription(`Villageois <@&${guild.roles.villageois}>`)
+
+            interaction.reply({embeds: [setupChanEmbed,setupRolesEmbed], ephemeral: true});
             
 
         

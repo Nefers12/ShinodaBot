@@ -35,7 +35,7 @@ module.exports = {
 
         infractionCreate.save();
 
-        user.send(`Vous avez été warn sur le serveur **Shinoda** pour la raison suivante : ${raison}`);
+        user.send(`Vous avez été warn pour la raison suivante : ${raison}`);
         interaction.reply({content:`<@${user.id}> a été warn pour la raison suivante : ${raison}`,ephemeral:true});
 
     }

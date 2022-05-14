@@ -49,6 +49,9 @@ module.exports = {
                 antiRaid: {
                     enable: false,
                 },
+            },
+            roles:{
+                villageois: '',
             }
         });
 
@@ -67,6 +70,7 @@ module.exports = {
             Cache.set( "supportTickets", guild.plugins.supportTickets);
             Cache.set( "demandeRP", guild.plugins.demandeRP);
             Cache.set( "antiRaid", guild.plugins.antiRaid);
+            Cache.set( "roles", guild.roles);
         }
 
         setInterval(async () => {

@@ -4,6 +4,7 @@ const { Cache } = require('../../index');
 const { Guild } = require('../../db/models/index');
 const guild = require('../../db/models/guild.js');
 const { MessageEmbed } = require('discord.js');
+const { createEmbed } = require('../../config/embed');
 
 module.exports = {
     name: 'guildMemberAdd',
@@ -13,9 +14,11 @@ module.exports = {
         const user = await User.findOne({ userId: member.id });
 
         guild.channels = Cache.get( "channels" );
+        guild.roles = Cache.get( "roles" );
         if(!guild){
             guild = await Guild.findOne({ guildId: member.guild.id });
             Cache.set( "channels", guild.channels);
+            Cache.set( "roles", guild.roles);
         };
 
         const welcomeEmbed = new MessageEmbed()
@@ -23,8 +26,18 @@ module.exports = {
             .setDescription(`Bienvenue à toi <@${member.id}> sur le serveur **${member.guild.name}**\nTu fais parti des ${member.guild.memberCount} personnes présentes sur le serveur !\n\nN'oublie pas de lire les règles !`)
             .setAuthor({ name : member.user.username,iconURL: member.displayAvatarURL()})
 
+        const logsEmbed = new MessageEmbed()
+            .setColor('RANDOM')
+            .setTitle(`${member.user.username} a rejoint le serveur`)
+            .setDescription(`création du compte : Le ${member.user.createdAt.getDate()}/${member.user.createdAt.getMonth()}/${member.user.createdAt.getFullYear()}`)
 
-            member.guild.channels.cache.get(guild.channels.logs).send({embeds: [welcomeEmbed]});
+
+            member.guild.channels.cache.get(guild.channels.join).send({embeds: [welcomeEmbed]});
+            member.guild.channels.cache.get(guild.channels.logs).send({embeds: [logsEmbed]});
+            if(!member.roles.cache.has(member.guild.roles.cache.get(guild.roles.villageois))) member.roles.add(member.guild.roles.cache.get(guild.roles.villageois));
+
+
+            
 
         if(!user) {
 

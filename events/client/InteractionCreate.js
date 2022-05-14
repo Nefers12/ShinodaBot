@@ -10,7 +10,7 @@ module.exports = {
             const cmd = client.commands.get(interaction.commandName);
             if(!cmd) return interaction.reply(`Cette commande n'existe pas !`);
 
-            if(!interaction.member.permissions.has(cmd.permissions)) return interaction.reply(`Vous n'avez pas la permission d'exécuter cette commande !`);
+            if(!interaction.member.permissions.has(cmd.permissions)) return interaction.reply({content :`Vous n'avez pas la permission d'exécuter cette commande !`,ephemeral : true});
 
             if(interaction.channel.id == !cmd.channel || undefined) return interaction.reply({content: `Cette commande ne peut être exécutée que dans le salon <#${cmd.channel}> !`,ephemeral:true});
 
@@ -125,7 +125,7 @@ module.exports = {
                 if(user[type] == max){
                     return interaction.reply({content : `Vous avez atteint le nombre maximum de ticket dans cette catégorie !`, ephemeral:true});
                 }else{
-                    interaction.reply({content : `Ticket créé`, ephemeral:true})
+                    interaction.deferUpdate()
                     createTicket(guild,dbToUse,row,textToDisplay)
                     user[type] = +user[type] + 1;
                     user.save();
@@ -141,7 +141,7 @@ module.exports = {
                 .setAuthor({ name : interaction.message.embeds[0].author.name,iconURL: interaction.message.embeds[0].author.iconURL})
                 interaction.channel.setParent(guild.channels.closedTicketsCategory);
                 interaction.message.edit({ embeds:[ticketEmbed],components: [row] });
-                interaction.reply({content: `Ticket fermé`, ephemeral:true});
+                interaction.deferUpdate()
 
                 const usr = await User.findOne({ userId: interaction.channel.topic });
                 usr[type] = +usr[type] - 1;

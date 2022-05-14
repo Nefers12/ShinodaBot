@@ -35,7 +35,7 @@ module.exports = {
 
         infractionCreate.save();
 
-        user.send(`Vous avez été banni du serveur **Shinoda** pour la raison suivante : ${raison}`);
+        user.send(`Vous avez été banni pour la raison suivante : ${raison}`);
         interaction.reply({content:`<@${user.id}> a été banni pour la raison suivante : ${raison}`,ephemeral:true});
         user.ban({reason: raison});
 
