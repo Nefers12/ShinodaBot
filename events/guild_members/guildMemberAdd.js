@@ -4,7 +4,6 @@ const { Cache } = require('../../index');
 const { Guild } = require('../../db/models/index');
 const guild = require('../../db/models/guild.js');
 const { MessageEmbed } = require('discord.js');
-const { createEmbed } = require('../../config/embed');
 
 module.exports = {
     name: 'guildMemberAdd',
