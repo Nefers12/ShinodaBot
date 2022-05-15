@@ -3,7 +3,7 @@ const { User } = require('../../db/models/index');
 const { Cache } = require('../../index');
 const { Guild } = require('../../db/models/index');
 const guild = require('../../db/models/guild.js');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, MessageAttachment } = require('discord.js');
 
 module.exports = {
     name: 'guildMemberAdd',
@@ -20,10 +20,14 @@ module.exports = {
             Cache.set( "roles", guild.roles);
         };
 
+        let rdm = Math.floor(Math.random() * 2);
+        const file = new MessageAttachment(`./img/${rdm}.png`);
+
         const welcomeEmbed = new MessageEmbed()
             .setColor('RANDOM')
             .setDescription(`Bienvenue à toi <@${member.id}> sur le serveur **${member.guild.name}**\nTu fais parti des ${member.guild.memberCount} personnes présentes sur le serveur !\n\nN'oublie pas de lire les règles !`)
             .setAuthor({ name : member.user.username,iconURL: member.displayAvatarURL()})
+            .setImage(`attachment://${rdm}.png`);
 
         const logsEmbed = new MessageEmbed()
             .setColor('RANDOM')
@@ -31,7 +35,7 @@ module.exports = {
             .setDescription(`création du compte : Le ${member.user.createdAt.getDate()}/${member.user.createdAt.getMonth()}/${member.user.createdAt.getFullYear()}`)
 
 
-            member.guild.channels.cache.get(guild.channels.join).send({embeds: [welcomeEmbed]});
+            member.guild.channels.cache.get(guild.channels.join).send({embeds: [welcomeEmbed], files: [file]});
             member.guild.channels.cache.get(guild.channels.logs).send({embeds: [logsEmbed]});
             if(!member.roles.cache.has(member.guild.roles.cache.get(guild.roles.villageois))) member.roles.add(member.guild.roles.cache.get(guild.roles.villageois));
 
