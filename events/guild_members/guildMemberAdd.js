@@ -32,7 +32,8 @@ module.exports = {
         const logsEmbed = new MessageEmbed()
             .setColor('RANDOM')
             .setTitle(`${member.user.username} a rejoint le serveur`)
-            .setDescription(`création du compte : Le ${member.user.createdAt.getDate()}/${member.user.createdAt.getMonth()}/${member.user.createdAt.getFullYear()}`)
+            .setAuthor({ name : member.user.username,iconURL: member.displayAvatarURL()})
+            .setDescription(`création du compte : Le <t:${member.user.createdAt.getTime()}:d> `)
 
 
             member.guild.channels.cache.get(guild.channels.join).send({embeds: [welcomeEmbed], files: [file]});

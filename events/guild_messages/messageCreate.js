@@ -3,6 +3,7 @@ var {banlist, messagesCount} = require('../../config/array.js');
 const { Cache } = require('../../index');
 const { Guild } = require('../../db/models/index');
 const guild = require('../../db/models/guild.js');
+const { MessageEmbed } = require('discord.js');
 
 
 
@@ -33,13 +34,18 @@ module.exports = {
             messagesCount[message.author.id] = +messagesCount[message.author.id] + 1;
         }
 
+        banlist.some(word => { 
+            if(message.content.toLowerCase().includes(word)){
 
-        for (let i in banlist) {
-            let content = message.content.toLowerCase().replace(/\s/g, '');
-            if (content.includes(banlist[i])) {
-                message.guild.channels.cache.get(guild.channels.logs).send(`${message.author} a utilisé le mot interdit "${banlist[i]}" dans la phrase :  ` + "```" + `${message.content}` + "```")
-                return;
-			}
-		}
+                const logsEmbed = new MessageEmbed()
+                .setColor('RANDOM')
+                .setTitle(`${message.author.username} a utilisé le mot interdit "${word}" dans la phrase :\n `+"```"+ message.content +"```")
+                .setAuthor({ name : message.author.username,iconURL: message.author.displayAvatarURL()})
+                .setDescription(`Pour voir le message, veuillez cliquer [ici](https://discord.com/channels/${message.guild.id}/${message.channel.id}/${message.id})`)
+
+                message.guild.channels.cache.get(guild.channels.logs).send({embeds: [logsEmbed]})
+            }
+        });
+
     },
 };
