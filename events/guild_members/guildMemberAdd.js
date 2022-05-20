@@ -33,7 +33,8 @@ module.exports = {
             .setColor('RANDOM')
             .setTitle(`${member.user.username} a rejoint le serveur`)
             .setAuthor({ name : member.user.username,iconURL: member.displayAvatarURL()})
-            .setDescription(`création du compte : Le <t:${member.user.createdAt.getTime()}:d> `)
+            .setDescription(`création du compte : Le <t:${parseInt(member.user.createdTimestamp / 1000, 10)}:d> `)
+        
 
 
             member.guild.channels.cache.get(guild.channels.join).send({embeds: [welcomeEmbed], files: [file]});

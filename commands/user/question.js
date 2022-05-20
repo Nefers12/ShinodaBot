@@ -3,6 +3,7 @@ const { Guild } = require('../../db/models/index');
 
 module.exports = {
     name: 'question',
+    permissions: ['SEND_MESSAGES'],
     description : 'Créer un embed avec la question',
     options : [{
         name:'question',
