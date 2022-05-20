@@ -35,7 +35,7 @@ module.exports = {
         }
 
         banlist.some(word => { 
-            if(message.content.toLowerCase().includes(word)){
+            if(message.content.toLowerCase().split(' ').includes(word)){
 
                 const logsEmbed = new MessageEmbed()
                 .setColor('RANDOM')
@@ -44,6 +44,7 @@ module.exports = {
                 .setDescription(`Pour voir le message, veuillez cliquer [ici](https://discord.com/channels/${message.guild.id}/${message.channel.id}/${message.id})`)
 
                 message.guild.channels.cache.get(guild.channels.logs).send({embeds: [logsEmbed]})
+                return;
             }
         });
 
