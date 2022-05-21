@@ -25,6 +25,10 @@ module.exports = {
             let type ='';
             let id='';
 
+            const wlEmbed = new MessageEmbed()
+            .setColor('RANDOM')
+            .setDescription(`Candidature acceptée !`)
+
             const rowTicket = new MessageActionRow()
             .addComponents(
                 new MessageButton()
@@ -40,6 +44,39 @@ module.exports = {
                         .setCustomId(`Whitelist`) 
                         .setLabel('Whitelist le joueur')
                         .setStyle('SUCCESS'));
+
+            const rowWhitelist = new MessageActionRow()
+            .addComponents(
+                    new MessageButton()
+                        .setLabel('Konoha')
+                        .setStyle('SUCCESS')
+                        .setCustomId(`Konoha`),
+                        new MessageButton()
+                        .setLabel('Kiri')
+                        .setStyle('SUCCESS')
+                        .setCustomId(`Kiri`),
+                        new MessageButton()
+                        .setLabel('Suna')
+                        .setStyle('SUCCESS')
+                        .setCustomId(`Suna`),
+                        new MessageButton()
+                        .setLabel('Kumo')
+                        .setStyle('SUCCESS')
+                        .setCustomId(`Kumo`),
+                        new MessageButton()
+                        .setLabel('Iwa')
+                        .setStyle('SUCCESS')
+                        .setCustomId(`Iwa`),
+                        );
+
+            const rowWhitelist2 = new MessageActionRow()
+            .addComponents(
+                new MessageButton()
+                        .setLabel('Autres')
+                        .setStyle('SUCCESS')
+                        .setCustomId(`Autres`));
+
+                        
 
 
             const guild = await Guild.findOne({ guildId: interaction.guild.id });
@@ -108,6 +145,10 @@ module.exports = {
                     row.components[0].setDisabled(true)
                     row.components[0].setCustomId('Closedisabled')
                     closeTicket(row,type)
+                    break;
+                case 'Whitelist':
+                    interaction.message.edit({embeds:[wlEmbed],components:[rowWhitelist,rowWhitelist2]})
+                    interaction.deferUpdate()
             }
 
             async function dbUpdate(user,type,guild,dbToUse,row,textToDisplay){
