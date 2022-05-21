@@ -155,17 +155,9 @@ module.exports = {
                     type: 'text',
                     topic:`${interaction.user.id}`,
                     parent: guild.plugins[dbToUse[0]][dbToUse[1]],
-                    permissionOverwrites: [
-                        {
-                            id: interaction.guild.roles.everyone,
-                            deny: ['VIEW_CHANNEL'],
-                        },
-                        {
-                            id: interaction.member.id,
-                            allow: ['VIEW_CHANNEL'],
-                        },
-                    ],
                 }).then(async (channel) => {
+                    channel.lockPermissions()
+                    channel.permissionOverwrites.edit(interaction.member.id, { VIEW_CHANNEL: true });
                     const ticketEmbed = new MessageEmbed()
                     .setColor('RANDOM')
                     .setAuthor({name: `Ticket de ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL()})
