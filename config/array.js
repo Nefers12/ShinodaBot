@@ -2432,5 +2432,11 @@ module.exports = {
 		"zguègu3",
 		"zguegue",
 		"zguègue",
-	],messagesCount:[]
+	],
+	messagesCount:[]
+	,Konoha:['Uchiwa','Hyuga','Senju','Nara','Uzumaki'],
+	Kiri:['Momochi','Yuki','Kaguya','Karatashi','Hoshigaki'],
+	Suna:['Shirogane','Kibin','Tatsumaki','Taku','Hôki'],
+	Kumo:['Chinoike','Arashi','Yotsuki','Fujiwara','Hatori'],
+	Iwa:['Kamizuru','Motori','Bakuhatsu','Bakuho','Kaemuri']
 };

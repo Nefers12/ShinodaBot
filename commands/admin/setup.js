@@ -117,6 +117,11 @@ module.exports = {
                     description: "role villageois",
                     type: 8
                 },
+                {
+                    name: "recruteur",
+                    description: "role recruteur",
+                    type: 8
+                },
             ]
         }
     ],
@@ -194,6 +199,9 @@ module.exports = {
                 case "villageois":
                     guild.roles.villageois = option[i].value;
                     break;
+                case "recruteur":
+                    guild.roles.recruteur = option[i].value;
+                    break;
             }
             
         }
@@ -206,6 +214,7 @@ module.exports = {
             Cache.set( "demandeRP", guild.plugins.demandeRP);
             Cache.set( "antiRaid", guild.plugins.antiRaid);
             Cache.set( "villageois", guild.roles.villageois);
+            Cache.set( "recruteur", guild.roles.recruteur);
 
 
             const setupChanEmbed = new MessageEmbed()
@@ -216,7 +225,7 @@ module.exports = {
             const setupRolesEmbed = new MessageEmbed()
                 .setColor('RANDOM')
                 .setTitle(`Liste des roles`)
-                .setDescription(`Villageois <@&${guild.roles.villageois}>`)
+                .setDescription(`Villageois <@&${guild.roles.villageois}>\n Recruteur <@&${guild.roles.recruteur}>`)
 
             interaction.reply({embeds: [setupChanEmbed,setupRolesEmbed], ephemeral: true});
             

@@ -1,6 +1,7 @@
 const dotenv = require('dotenv'); dotenv.config();
 const { Guild, User} = require('../../db/models/index');
 const { MessageEmbed, MessageActionRow, MessageButton  } = require('discord.js');
+const { Konoha, Kiri, Suna, Kumo, Iwa } = require('../../config/array');
 
 module.exports = {
     name: 'interactionCreate',
@@ -76,9 +77,6 @@ module.exports = {
                         .setStyle('SUCCESS')
                         .setCustomId(`Autres`));
 
-                        
-
-
             const guild = await Guild.findOne({ guildId: interaction.guild.id });
             const user = await User.findOne({ userId: interaction.user.id });
 
@@ -149,6 +147,29 @@ module.exports = {
                 case 'Whitelist':
                     interaction.message.edit({embeds:[wlEmbed],components:[rowWhitelist,rowWhitelist2]})
                     interaction.deferUpdate()
+                    break;
+                case 'Konoha':
+                    crateClanButtons(Konoha);
+                    interaction.deferUpdate()
+                    break;
+                case 'Kiri':
+                    crateClanButtons(Kiri);
+                    interaction.deferUpdate()
+                    break;
+                case 'Suna':
+                    crateClanButtons(Suna);
+                    interaction.deferUpdate()
+                    break;
+                case 'Kumo':
+                    crateClanButtons(Kumo);
+                    interaction.deferUpdate()
+                    break;
+                case 'Iwa':
+                    crateClanButtons(Iwa);
+                    interaction.deferUpdate()
+                    break;
+                case 'Autres':
+                    break;
             }
 
             async function dbUpdate(user,type,guild,dbToUse,row,textToDisplay){
@@ -197,8 +218,8 @@ module.exports = {
                     topic:`${interaction.user.id}`,
                     parent: guild.plugins[dbToUse[0]][dbToUse[1]],
                 }).then(async (channel) => {
-                    channel.lockPermissions()
-                    channel.permissionOverwrites.edit(interaction.member.id, { VIEW_CHANNEL: true });
+                    await channel.lockPermissions()
+                    channel.permissionOverwrites.edit(interaction.user.id, { VIEW_CHANNEL: true });
                     const ticketEmbed = new MessageEmbed()
                     .setColor('RANDOM')
                     .setAuthor({name: `Ticket de ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL()})
@@ -206,6 +227,22 @@ module.exports = {
         
                     channel.send({content: `${interaction.user}` ,embeds: [ticketEmbed], components: [row]});
                 })
+            }
+
+            async function crateClanButtons(clan){
+
+                console.log(interaction.member.roles.cache.has(interaction.guild.roles.cache.get(guild.roles.recruteur)))
+
+                const rowclan = new MessageActionRow()
+                for(i in clan){
+                    rowclan.addComponents(
+                        new MessageButton()
+                                .setLabel(clan[i])
+                                .setStyle('SUCCESS')
+                                .setCustomId(clan[i]))
+                            }
+                
+                interaction.message.edit({embeds:[wlEmbed],components:[rowclan]})
             }
                 
         }

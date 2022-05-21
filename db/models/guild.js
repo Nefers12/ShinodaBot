@@ -5,6 +5,7 @@ const guildSchema = new Schema({
 	name: String,
 	roles: {
 		villageois: String,
+		recruteur: String,
 	},
 	channels: {
 		logs: String,
