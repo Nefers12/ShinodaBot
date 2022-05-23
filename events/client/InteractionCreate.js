@@ -80,6 +80,10 @@ module.exports = {
             const guild = await Guild.findOne({ guildId: interaction.guild.id });
             const user = await User.findOne({ userId: interaction.user.id });
 
+
+
+
+
             switch(interaction.customId){
                 case 'playertickets':
                     dbToUse = ['playerTickets','playerTicketCategory'];
@@ -145,6 +149,7 @@ module.exports = {
                     closeTicket(row,type)
                     break;
                 case 'Whitelist':
+                    if(!interaction.member.roles.cache.has(guild.roles.recruteur))return;
                     interaction.message.edit({embeds:[wlEmbed],components:[rowWhitelist,rowWhitelist2]})
                     interaction.deferUpdate()
                     break;
@@ -169,6 +174,56 @@ module.exports = {
                     interaction.deferUpdate()
                     break;
                 case 'Autres':
+                    break;
+                case 'Uchiwa':
+                    break;
+                case 'Hyuga':
+                    break;
+                case 'Senju':
+                    break;
+                case 'Nara':
+                    break;
+                case 'Uzumaki':
+                    break;
+                case 'Momochi':
+                    break;
+                case 'Yuki':
+                    break;
+                case 'Kaguya':
+                    break;
+                case 'Karatashi':
+                    break;
+                case 'Hoshigaki':
+                    break;
+                case 'Shirogane':
+                    break;
+                case 'Kibin':
+                    break;
+                case 'Tatsumaki':
+                    break;
+                case 'Taku':
+                    break;
+                case 'Hôki':
+                    break;
+                case 'Chinoike':
+                    break;
+                case 'Arashi':
+                    break;
+                case 'Yotsuki':
+                    break;
+                case 'Fujiwara':
+                    break;
+                case 'Hatori':
+                    break;
+                case 'Kamizuru':
+                    break;
+                case 'Motori':
+                    break;
+                case 'Bakuhatsu':
+                    break;
+                case 'Bakuho':
+                    break;
+                case 'Kaemuri':
                     break;
             }
 
@@ -231,7 +286,7 @@ module.exports = {
 
             async function crateClanButtons(clan){
 
-                console.log(interaction.member.roles.cache.has(interaction.guild.roles.cache.get(guild.roles.recruteur)))
+                if(!interaction.member.roles.cache.has(guild.roles.recruteur))return;
 
                 const rowclan = new MessageActionRow()
                 for(i in clan){

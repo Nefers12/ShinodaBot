@@ -102,6 +102,11 @@ module.exports = {
                     type: 5
                 },
                 {
+                    name: "recrutement",
+                    description: "recrutement",
+                    type: 5
+                },
+                {
                     name: "antiraid",
                     description: "antiRaid",
                     type: 5
@@ -142,6 +147,9 @@ module.exports = {
                     module = 1;
                 break;
                 case "demanderp":
+                    module = 1;
+                break;
+                case "recrutement":
                     module = 1;
                 break;
                 case "antiraid":
@@ -215,6 +223,11 @@ module.exports = {
             Cache.set( "antiRaid", guild.plugins.antiRaid);
             Cache.set( "villageois", guild.roles.villageois);
             Cache.set( "recruteur", guild.roles.recruteur);
+            Cache.set( "Konoha", guild.roles.recrutement.Konoha);
+            Cache.set( "Kiri", guild.roles.recrutement.Kiri);
+            Cache.set( "Suna", guild.roles.recrutement.Suna);
+            Cache.set( "Kumo", guild.roles.recrutement.Kumo);
+            Cache.set( "Iwa", guild.roles.recrutement.Iwa);
 
 
             const setupChanEmbed = new MessageEmbed()
@@ -269,6 +282,9 @@ module.exports = {
                         candidMsg = 'Faire une demande RP'
                         await updateCandidMsg(guild,plugin[i],chanToSend,dbTosend,candidMsg);
                     break;
+                    case "recrutement":
+                        guild.plugins.recrutement = plugin[i].value;
+                    break;
                     case "antiraid":
                         guild.plugins.antiRaid.enable = plugin[i].value;
                     break;
@@ -314,7 +330,7 @@ module.exports = {
             let setupPlugEmbed = new MessageEmbed()
                 .setColor('RANDOM')
                 .setTitle(`Statut des pluggins`)
-                .setDescription(`PlayerTickets: ${guild.plugins.playerTickets.enabled ? ":white_check_mark:" : ":x: "} \nStaffTickets: ${guild.plugins.staffTickets.enabled ? ":white_check_mark:" : ":x: "} \nSupportTickets: ${guild.plugins.supportTickets.enabled ? ":white_check_mark:" : ":x: "} \nAntiRaid: ${guild.plugins.antiRaid.enable ? ":white_check_mark:" : ":x: "}`)
+                .setDescription(`PlayerTickets: ${guild.plugins.playerTickets.enabled ? ":white_check_mark:" : ":x: "} \nStaffTickets: ${guild.plugins.staffTickets.enabled ? ":white_check_mark:" : ":x: "} \nSupportTickets: ${guild.plugins.supportTickets.enabled ? ":white_check_mark:" : ":x: "} \nAntiRaid: ${guild.plugins.antiRaid.enable ? ":white_check_mark:" : ":x: "} \nAntiRaid: ${guild.plugins.recrutement ? ":white_check_mark:" : ":x: "}`)
 
             interaction.reply({embeds: [setupPlugEmbed], ephemeral: true});
 
