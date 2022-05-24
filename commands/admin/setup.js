@@ -137,6 +137,31 @@ module.exports = {
                     description: "role recruteur",
                     type: 8
                 },
+                {
+                    name: "konoha",
+                    description: "role konoha",
+                    type: 8
+                },
+                {
+                    name: "kiri",
+                    description: "role kiri",
+                    type: 8
+                },
+                {
+                    name: "suna",
+                    description: "role suna",
+                    type: 8
+                },
+                {
+                    name: "kumo",
+                    description: "role kumo",
+                    type: 8
+                },
+                {
+                    name: "iwa",
+                    description: "role iwa",
+                    type: 8
+                },
             ]
         }
     ],
@@ -222,6 +247,21 @@ module.exports = {
                     break;
                 case "recruteur":
                     guild.roles.recruteur = option[i].value;
+                    break;
+                case "konoha":
+                    guild.roles.konoha = option[i].value;
+                    break;
+                case "kiri":
+                    guild.roles.kiri = option[i].value;
+                    break;
+                case "suna":
+                    guild.roles.suna = option[i].value;
+                    break;
+                case "kumo":
+                    guild.roles.kumo = option[i].value;
+                    break;
+                case "iwa":
+                    guild.roles.iwa = option[i].value;
                     break;
                 case "recensement":
                     guild.channels.recensement = option[i].value;

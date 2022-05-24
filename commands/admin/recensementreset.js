@@ -107,8 +107,34 @@ module.exports = {
                     placemax: 0,
                 } ,
             },
+            iwa:{
+                place: 0,
+                placemax: 0,
+                kamizuru: {
+                    place: 0,
+                    placemax: 0,
+                },
+                motori:{
+                    place: 0,
+                    placemax: 0,
+                } ,
+                bakuhatsu:{
+                    place: 0,
+                    placemax: 0,
+                } ,
+                bakuho:{
+                    place: 0,
+                    placemax: 0,
+                } ,
+                kaemuri:{
+                    place: 0,
+                    placemax: 0,
+                },
+            },
     }
 
     guild.save();
+
+    interaction.reply({content : 'Recensement réinitialisé', ephemeral: true});
 }
 }

@@ -6,6 +6,11 @@ const guildSchema = new Schema({
 	roles: {
 		villageois: String,
 		recruteur: String,
+		konoha: String,
+		kiri: String,
+		suna: String,
+		kumo: String,
+		iwa: String,
 	},
 	channels: {
 		logs: String,
