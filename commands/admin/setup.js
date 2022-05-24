@@ -80,6 +80,11 @@ module.exports = {
                     description: "closedTickets Category",
                     type: 7
                 },
+                {
+                    name: "acceptedticketscategory",
+                    description: "acceptedTickets Category",
+                    type: 7
+                }
             ]
         },{
             name: "pluggins",
@@ -209,6 +214,9 @@ module.exports = {
                 case "demanderpcategory":
                     guild.plugins.demandeRP.demandeRPCategory = option[i].value;
                     break;
+                case "acceptedticketscategory":
+                    guild.channels.acceptedTicketsCategory = option[i].value;
+                    break;
                 case "villageois":
                     guild.roles.villageois = option[i].value;
                     break;
@@ -237,7 +245,7 @@ module.exports = {
             const setupChanEmbed = new MessageEmbed()
                 .setColor('RANDOM')
                 .setTitle(`Liste des channels`)
-                .setDescription(`Logs: <#${guild.channels.logs}> \nQuestion: <#${guild.channels.question}> \nSuggestion: <#${guild.channels.suggestion}> \nJoin: <#${guild.channels.join}> \nCandidature: <#${guild.channels.candidature}> \nTickets: <#${guild.channels.tickets}> \nBoost: <#${guild.channels.boost}> \nPartenariat: <#${guild.channels.partenariat}> \nrecensement: <#${guild.channels.recensement}> \nPlayerTicketCategory: <#${guild.plugins.playerTickets.playerTicketCategory}> \nStaffTicketCategory: <#${guild.plugins.staffTickets.staffTicketCategory}> \nSupportTicketCategory: <#${guild.plugins.supportTickets.supportTicketCategory}> \nClosedTicketsCategory: <#${guild.channels.closedTicketsCategory}> \nDemandeRPCategory: <#${guild.plugins.demandeRP.demandeRPCategory}>`)
+                .setDescription(`Logs: <#${guild.channels.logs}> \nQuestion: <#${guild.channels.question}> \nSuggestion: <#${guild.channels.suggestion}> \nJoin: <#${guild.channels.join}> \nCandidature: <#${guild.channels.candidature}> \nTickets: <#${guild.channels.tickets}> \nBoost: <#${guild.channels.boost}> \nPartenariat: <#${guild.channels.partenariat}> \nrecensement: <#${guild.channels.recensement}> \nPlayerTicketCategory: <#${guild.plugins.playerTickets.playerTicketCategory}> \nStaffTicketCategory: <#${guild.plugins.staffTickets.staffTicketCategory}> \nSupportTicketCategory: <#${guild.plugins.supportTickets.supportTicketCategory}> \nClosedTicketsCategory: <#${guild.channels.closedTicketsCategory}> \nDemandeRPCategory: <#${guild.plugins.demandeRP.demandeRPCategory}> \nAcceptedTicketsCategory: <#${guild.channels.acceptedTicketsCategory}>`)
 
             const setupRolesEmbed = new MessageEmbed()
                 .setColor('RANDOM')

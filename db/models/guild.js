@@ -18,6 +18,7 @@ const guildSchema = new Schema({
 		partenariat: String,
 		recensement: String,
 		closedTicketsCategory: String,
+		acceptedTicketsCategory: String,
 	},
 	recensement:{
 		konoha:{

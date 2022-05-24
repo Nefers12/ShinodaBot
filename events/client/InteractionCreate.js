@@ -80,10 +80,6 @@ module.exports = {
             const guild = await Guild.findOne({ guildId: interaction.guild.id });
             const user = await User.findOne({ userId: interaction.user.id });
 
-
-
-
-
             switch(interaction.customId){
                 case 'playertickets':
                     dbToUse = ['playerTickets','playerTicketCategory'];
@@ -358,7 +354,7 @@ module.exports = {
                 const recensementEmbed = new MessageEmbed()
                 .setColor('RANDOM')
                 .setTitle(`Recensement`)
-                .setDescription(`**Ici se trouvera les places disponibles dans les villages/clans**`)
+                .setDescription(`**Ici se trouve les places disponibles dans les villages/clans**`)
                 .addField(`Konoha : ${guild.recensement.konoha.place}/${guild.recensement.konoha.placemax}`,"```"+ `Uchiwa : ${guild.recensement.konoha.uchiwa.place}/${guild.recensement.konoha.uchiwa.placemax}\nHyuga : ${guild.recensement.konoha.hyuga.place}/${guild.recensement.konoha.hyuga.placemax}\nSenju : ${guild.recensement.konoha.senju.place}/${guild.recensement.konoha.senju.placemax}\nNara : ${guild.recensement.konoha.nara.place}/${guild.recensement.konoha.nara.placemax}\nUzumaki : ${guild.recensement.konoha.uzumaki.place} /${guild.recensement.konoha.uzumaki.placemax}`+ "```")
                 .addField(`Kiri : ${guild.recensement.kiri.place}/${guild.recensement.kiri.placemax}`,"```"+ `Momochi : ${guild.recensement.kiri.momochi.place}/${guild.recensement.kiri.momochi.placemax}\nYuki : ${guild.recensement.kiri.yuki.place}/${guild.recensement.kiri.yuki.placemax}\nKaguya : ${guild.recensement.kiri.kaguya.place}/${guild.recensement.kiri.kaguya.placemax}\nKaratashi : ${guild.recensement.kiri.karatashi.place}/${guild.recensement.kiri.karatashi.placemax}\nHoshigaki : ${guild.recensement.kiri.hoshigaki.place}/${guild.recensement.kiri.hoshigaki.placemax}`+ "```")
                 .addField(`Suna : ${guild.recensement.suna.place}/${guild.recensement.suna.placemax}`,"```"+ `Shirogane : ${guild.recensement.suna.shirogane.place}/${guild.recensement.suna.shirogane.placemax}\nKibin : ${guild.recensement.suna.kibin.place}/${guild.recensement.suna.kibin.placemax}\nTatsumaki : ${guild.recensement.suna.tatsumaki.place}/${guild.recensement.suna.tatsumaki.placemax}\nTaku : ${guild.recensement.suna.taku.place}/${guild.recensement.suna.taku.placemax}\nHôki : ${guild.recensement.suna.hôki.place}/${guild.recensement.suna.hôki.placemax}`+ "```")
@@ -368,6 +364,13 @@ module.exports = {
                 await guild.save()
                 msg = await interaction.guild.channels.cache.get(guild.channels.recensement).messages.fetch(guild.plugins.recensementMsg);
                 msg.edit({embeds:[recensementEmbed]});
+
+                interaction.channel.setParent(guild.channels.acceptedTicketsCategory, true );
+
+                const usr = await User.findOne({ userId: interaction.channel.topic });
+                usr.ticketPlayer = +usr.ticketPlayer - 1;
+                usr.save();
+                interaction.channel.setTopic(null);
             }
                 
         }
