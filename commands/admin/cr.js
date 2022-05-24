@@ -2,9 +2,9 @@ const { Guild, User } = require('../../db/models/index');
 
 
 module.exports = {
-    name: 'cr',
+    name: 'recensementreset',
     permissions: ['ADMINISTRATOR'],
-    description : 'reinitialise le Recensement',
+    description : 'Reinitialise le recensement',
 
     runSlash: async (client, interaction) => {
 

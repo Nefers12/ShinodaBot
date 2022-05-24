@@ -1,7 +1,7 @@
 const dotenv = require('dotenv'); dotenv.config();
 const { Guild, User} = require('../../db/models/index');
 const { MessageEmbed, MessageActionRow, MessageButton  } = require('discord.js');
-const { Konoha: konoha, Kiri: kiri, Suna: suna, Kumo: kumo, Iwa: iwa } = require('../../config/array');
+const { konoha, kiri, suna,  kumo, iwa } = require('../../config/array');
 
 module.exports = {
     name: 'interactionCreate',
@@ -176,54 +176,104 @@ module.exports = {
                 case 'Autres':
                     break;
                 case 'Uchiwa':
+                    editClans("uchiwa","konoha");
+                    interaction.deferUpdate()
                     break;
                 case 'Hyuga':
+                    editClans("hyuga","konoha");
+                    interaction.deferUpdate()
                     break;
                 case 'Senju':
+                    editClans("senju","konoha");
+                    interaction.deferUpdate()
                     break;
                 case 'Nara':
+                    editClans("nara","konoha");
+                    interaction.deferUpdate()
                     break;
                 case 'Uzumaki':
+                    editClans("uzumaki","konoha");
+                    interaction.deferUpdate()
                     break;
                 case 'Momochi':
+                    editClans("momochi","kiri");
+                    interaction.deferUpdate()
                     break;
                 case 'Yuki':
+                    editClans("yuki","kiri");
+                    interaction.deferUpdate()
                     break;
                 case 'Kaguya':
+                    editClans("kaguya","kiri");
+                    interaction.deferUpdate()
                     break;
                 case 'Karatashi':
+                    editClans("karatashi","kiri");
+                    interaction.deferUpdate()
                     break;
                 case 'Hoshigaki':
+                    editClans("hoshigaki","kiri");
+                    interaction.deferUpdate()
                     break;
                 case 'Shirogane':
+                    editClans("shirogane","suna");
+                    interaction.deferUpdate()
                     break;
                 case 'Kibin':
+                    editClans("kibin","suna");
+                    interaction.deferUpdate()
                     break;
                 case 'Tatsumaki':
+                    editClans("tatsumaki","suna");
+                    interaction.deferUpdate()
                     break;
                 case 'Taku':
+                    editClans("taku","suna");
+                    interaction.deferUpdate()
                     break;
                 case 'Hôki':
+                    editClans("hôki","suna");
+                    interaction.deferUpdate()
                     break;
                 case 'Chinoike':
+                    editClans("chinoike","kumo");
+                    interaction.deferUpdate()
                     break;
                 case 'Arashi':
+                    editClans("arashi","kumo");
+                    interaction.deferUpdate()
                     break;
                 case 'Yotsuki':
+                    editClans("yotsuki","kumo");
+                    interaction.deferUpdate()
                     break;
                 case 'Fujiwara':
+                    editClans("fujiwara","kumo");
+                    interaction.deferUpdate()
                     break;
                 case 'Hatori':
+                    editClans("hatori","kumo");
+                    interaction.deferUpdate()
                     break;
                 case 'Kamizuru':
+                    editClans("kamizuru","iwa");
+                    interaction.deferUpdate()
                     break;
                 case 'Motori':
+                    editClans("motori","iwa");
+                    interaction.deferUpdate()
                     break;
                 case 'Bakuhatsu':
+                    editClans("bakuhatsu","iwa");
+                    interaction.deferUpdate()
                     break;
                 case 'Bakuho':
+                    editClans("bakuho","iwa");
+                    interaction.deferUpdate()
                     break;
                 case 'Kaemuri':
+                    editClans("kaemuri","iwa");
+                    interaction.deferUpdate()
                     break;
             }
 
@@ -298,6 +348,26 @@ module.exports = {
                             }
                 
                 interaction.message.edit({embeds:[wlEmbed],components:[rowclan]})
+            }
+
+            async function editClans(clan,village){
+                interaction.message.edit({embeds:[wlEmbed],components:[]})
+                guild.recensement[village][clan].place++;
+                guild.recensement[village].place++;
+
+                const recensementEmbed = new MessageEmbed()
+                .setColor('RANDOM')
+                .setTitle(`Recensement`)
+                .setDescription(`**Ici se trouvera les places disponibles dans les villages/clans**`)
+                .addField(`Konoha : ${guild.recensement.konoha.place}/${guild.recensement.konoha.placemax}`,"```"+ `Uchiwa : ${guild.recensement.konoha.uchiwa.place}/${guild.recensement.konoha.uchiwa.placemax}\nHyuga : ${guild.recensement.konoha.hyuga.place}/${guild.recensement.konoha.hyuga.placemax}\nSenju : ${guild.recensement.konoha.senju.place}/${guild.recensement.konoha.senju.placemax}\nNara : ${guild.recensement.konoha.nara.place}/${guild.recensement.konoha.nara.placemax}\nUzumaki : ${guild.recensement.konoha.uzumaki.place} /${guild.recensement.konoha.uzumaki.placemax}`+ "```")
+                .addField(`Kiri : ${guild.recensement.kiri.place}/${guild.recensement.kiri.placemax}`,"```"+ `Momochi : ${guild.recensement.kiri.momochi.place}/${guild.recensement.kiri.momochi.placemax}\nYuki : ${guild.recensement.kiri.yuki.place}/${guild.recensement.kiri.yuki.placemax}\nKaguya : ${guild.recensement.kiri.kaguya.place}/${guild.recensement.kiri.kaguya.placemax}\nKaratashi : ${guild.recensement.kiri.karatashi.place}/${guild.recensement.kiri.karatashi.placemax}\nHoshigaki : ${guild.recensement.kiri.hoshigaki.place}/${guild.recensement.kiri.hoshigaki.placemax}`+ "```")
+                .addField(`Suna : ${guild.recensement.suna.place}/${guild.recensement.suna.placemax}`,"```"+ `Shirogane : ${guild.recensement.suna.shirogane.place}/${guild.recensement.suna.shirogane.placemax}\nKibin : ${guild.recensement.suna.kibin.place}/${guild.recensement.suna.kibin.placemax}\nTatsumaki : ${guild.recensement.suna.tatsumaki.place}/${guild.recensement.suna.tatsumaki.placemax}\nTaku : ${guild.recensement.suna.taku.place}/${guild.recensement.suna.taku.placemax}\nHôki : ${guild.recensement.suna.hôki.place}/${guild.recensement.suna.hôki.placemax}`+ "```")
+                .addField(`Kumo : ${guild.recensement.kumo.place}/${guild.recensement.kumo.placemax}`,"```"+ `Chinoike : ${guild.recensement.kumo.chinoike.place}/${guild.recensement.kumo.chinoike.placemax}\nArashi : ${guild.recensement.kumo.arashi.place}/${guild.recensement.kumo.arashi.placemax}\nYotsuki : ${guild.recensement.kumo.yotsuki.place}/${guild.recensement.kumo.yotsuki.placemax}\nFujiwara : ${guild.recensement.kumo.fujiwara.place}/${guild.recensement.kumo.fujiwara.placemax}\nHatori : ${guild.recensement.kumo.hatori.place}/${guild.recensement.kumo.hatori.placemax}`+ "```")
+                .addField(`Iwa : ${guild.recensement.iwa.place}/${guild.recensement.iwa.placemax}`,"```"+ `Kamizuru : ${guild.recensement.iwa.kamizuru.place}/${guild.recensement.iwa.kamizuru. placemax}\nMotori : ${guild.recensement.iwa.motori.place}/${guild.recensement.iwa.motori.placemax}\nBakuhatsu : ${guild.recensement.iwa.bakuhatsu.place}/${guild.recensement.iwa.bakuhatsu.placemax}\nBakuho : ${guild.recensement.iwa.bakuho.place}/${guild.recensement.iwa.bakuho.placemax}\nKaemuri : ${guild.recensement.iwa.kaemuri.place}/${guild.recensement.iwa.kaemuri.placemax}`+ "```")
+    
+                await guild.save()
+                msg = await interaction.guild.channels.cache.get(guild.channels.recensement).messages.fetch(guild.plugins.recensementMsg);
+                msg.edit({embeds:[recensementEmbed]});
             }
                 
         }
