@@ -120,7 +120,8 @@ module.exports = {
                     name: "motori",
                     description: "motori",
                     type: 10
-                },                {
+                },
+                {
                     name: "bakuhatsu",
                     description: "bakuhatsu",
                     type: 10
@@ -132,6 +133,30 @@ module.exports = {
                 },                {
                     name: "kaemuri",
                     description: "kaemuri",
+                    type: 10
+                },
+                {
+                    name: "shirogane",
+                    description: "Shirogane",
+                    type: 10
+                },
+                {
+                    name: "kibin",
+                    description: "Kibin",
+                    type: 10
+                },
+                {
+                    name: "tatsumaki",
+                    description: "Tatsumaki",
+                    type: 10
+                },
+                {
+                    name: "taku",
+                    description: "Taku",
+                    type: 10
+                },                {
+                    name: "hôki",
+                    description: "Hôki",
                     type: 10
                 },
             ]
@@ -261,6 +286,30 @@ module.exports = {
                 },                {
                     name: "kaemuri",
                     description: "kaemuri",
+                    type: 10
+                },
+                {
+                    name: "shirogane",
+                    description: "Shirogane",
+                    type: 10
+                },
+                {
+                    name: "kibin",
+                    description: "Kibin",
+                    type: 10
+                },
+                {
+                    name: "tatsumaki",
+                    description: "Tatsumaki",
+                    type: 10
+                },
+                {
+                    name: "taku",
+                    description: "Taku",
+                    type: 10
+                },                {
+                    name: "hôki",
+                    description: "Hôki",
                     type: 10
                 },
             ]
