@@ -365,7 +365,8 @@ module.exports = {
                 msg = await interaction.guild.channels.cache.get(guild.channels.recensement).messages.fetch(guild.plugins.recensementMsg);
                 msg.edit({embeds:[recensementEmbed]});
 
-                interaction.channel.setParent(guild.channels.acceptedTicketsCategory, true );
+                await interaction.channel.setParent(guild.channels.acceptedTicketsCategory, true );
+                interaction.channel.permissionOverwrites.edit( interaction.channel.topic, { VIEW_CHANNEL: true });
 
                 const usr = await User.findOne({ userId: interaction.channel.topic });
                 usr.ticketPlayer = +usr.ticketPlayer - 1;
@@ -373,7 +374,6 @@ module.exports = {
 
                 interaction.guild.members.fetch(interaction.channel.topic).then( member =>{
                     if(!member.roles.cache.has(guild.roles[village]))member.roles.add(guild.roles[village]);
-                    interaction.channel.permissionOverwrites.edit( interaction.channel.topic, { VIEW_CHANNEL: true });
                 });
             
             }
