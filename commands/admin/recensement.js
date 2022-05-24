@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'recensement',
-    permissions: ['ADMINISTRATOR'],
+    permissions: ['SEND_MESSAGES'],
     description : 'permet d\'éditer les options de recensement',
     options: [
         {
@@ -270,11 +270,13 @@ module.exports = {
 
     runSlash: async (client, interaction) => {
 
+        const guild = await Guild.findOne({ guildId: interaction.guild.id });
+
+        if(!interaction.member.roles.cache.has(guild.roles.recruteur))return interaction.reply({content: `Vous n'avez pas la permission d'éxécuter cette commande.`,ephemeral: true});
+
         let max = false;
         const module = interaction.options._subcommand
         const option = interaction.options._hoistedOptions;
-
-        const guild = await Guild.findOne({ guildId: interaction.guild.id });
 
         switch(module){
             case "villagemax":

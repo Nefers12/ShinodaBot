@@ -371,7 +371,7 @@ module.exports = {
                 usr.ticketPlayer = +usr.ticketPlayer - 1;
                 usr.save();
 
-                interaction.member.fetch(interaction.channel.topic).then( member =>{
+                interaction.guild.members.fetch(interaction.channel.topic).then( member =>{
                     if(!member.roles.cache.has(guild.roles[village]))member.roles.add(guild.roles[village]);
                 });
                 
