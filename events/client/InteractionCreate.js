@@ -373,9 +373,9 @@ module.exports = {
 
                 interaction.guild.members.fetch(interaction.channel.topic).then( member =>{
                     if(!member.roles.cache.has(guild.roles[village]))member.roles.add(guild.roles[village]);
+                    interaction.channel.permissionOverwrites.edit( interaction.channel.topic, { VIEW_CHANNEL: true });
                 });
-                
-                interaction.channel.setTopic(null);
+            
             }
                 
         }
