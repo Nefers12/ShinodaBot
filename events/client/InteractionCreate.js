@@ -1,7 +1,7 @@
 const dotenv = require('dotenv'); dotenv.config();
 const { Guild, User} = require('../../db/models/index');
 const { MessageEmbed, MessageActionRow, MessageButton  } = require('discord.js');
-const { Konoha, Kiri, Suna, Kumo, Iwa } = require('../../config/array');
+const { Konoha: konoha, Kiri: kiri, Suna: suna, Kumo: kumo, Iwa: iwa } = require('../../config/array');
 
 module.exports = {
     name: 'interactionCreate',
@@ -154,23 +154,23 @@ module.exports = {
                     interaction.deferUpdate()
                     break;
                 case 'Konoha':
-                    crateClanButtons(Konoha);
+                    crateClanButtons(konoha);
                     interaction.deferUpdate()
                     break;
                 case 'Kiri':
-                    crateClanButtons(Kiri);
+                    crateClanButtons(kiri);
                     interaction.deferUpdate()
                     break;
                 case 'Suna':
-                    crateClanButtons(Suna);
+                    crateClanButtons(suna);
                     interaction.deferUpdate()
                     break;
                 case 'Kumo':
-                    crateClanButtons(Kumo);
+                    crateClanButtons(kumo);
                     interaction.deferUpdate()
                     break;
                 case 'Iwa':
-                    crateClanButtons(Iwa);
+                    crateClanButtons(iwa);
                     interaction.deferUpdate()
                     break;
                 case 'Autres':

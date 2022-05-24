@@ -51,6 +51,11 @@ module.exports = {
                     type: 7
                 },
                 {
+                    name: "recensement",
+                    description: "Partenariat channel",
+                    type: 7
+                },
+                {
                     name: "playerticketcategory",
                     description: "playerTicket Category",
                     type: 7
@@ -102,13 +107,13 @@ module.exports = {
                     type: 5
                 },
                 {
-                    name: "recrutement",
-                    description: "recrutement",
+                    name: "antiraid",
+                    description: "antiRaid",
                     type: 5
                 },
                 {
-                    name: "antiraid",
-                    description: "antiRaid",
+                    name: "recensementpl",
+                    description: "recensementpl",
                     type: 5
                 },
             ]
@@ -149,10 +154,10 @@ module.exports = {
                 case "demanderp":
                     module = 1;
                 break;
-                case "recrutement":
+                case "antiraid":
                     module = 1;
                 break;
-                case "antiraid":
+                case "recensementpl":
                     module = 1;
                 break;
         }
@@ -210,6 +215,9 @@ module.exports = {
                 case "recruteur":
                     guild.roles.recruteur = option[i].value;
                     break;
+                case "recensement":
+                    guild.channels.recensement = option[i].value;
+                    break;
             }
             
         }
@@ -221,19 +229,15 @@ module.exports = {
             Cache.set( "supportTickets", guild.plugins.supportTickets);
             Cache.set( "demandeRP", guild.plugins.demandeRP);
             Cache.set( "antiRaid", guild.plugins.antiRaid);
+            Cache.set( "recensementpl", guild.plugins.recensementPl);
             Cache.set( "villageois", guild.roles.villageois);
             Cache.set( "recruteur", guild.roles.recruteur);
-            Cache.set( "Konoha", guild.roles.recrutement.Konoha);
-            Cache.set( "Kiri", guild.roles.recrutement.Kiri);
-            Cache.set( "Suna", guild.roles.recrutement.Suna);
-            Cache.set( "Kumo", guild.roles.recrutement.Kumo);
-            Cache.set( "Iwa", guild.roles.recrutement.Iwa);
 
 
             const setupChanEmbed = new MessageEmbed()
                 .setColor('RANDOM')
                 .setTitle(`Liste des channels`)
-                .setDescription(`Logs: <#${guild.channels.logs}> \nQuestion: <#${guild.channels.question}> \nSuggestion: <#${guild.channels.suggestion}> \nJoin: <#${guild.channels.join}> \nCandidature: <#${guild.channels.candidature}> \nTickets: <#${guild.channels.tickets}> \nBoost: <#${guild.channels.boost}> \nPartenariat: <#${guild.channels.partenariat}> \nPlayerTicketCategory: <#${guild.plugins.playerTickets.playerTicketCategory}> \nStaffTicketCategory: <#${guild.plugins.staffTickets.staffTicketCategory}> \nSupportTicketCategory: <#${guild.plugins.supportTickets.supportTicketCategory}> \nClosedTicketsCategory: <#${guild.channels.closedTicketsCategory}> \nDemandeRPCategory: <#${guild.plugins.demandeRP.demandeRPCategory}>`)
+                .setDescription(`Logs: <#${guild.channels.logs}> \nQuestion: <#${guild.channels.question}> \nSuggestion: <#${guild.channels.suggestion}> \nJoin: <#${guild.channels.join}> \nCandidature: <#${guild.channels.candidature}> \nTickets: <#${guild.channels.tickets}> \nBoost: <#${guild.channels.boost}> \nPartenariat: <#${guild.channels.partenariat}> \nrecensement: <#${guild.channels.recensement}> \nPlayerTicketCategory: <#${guild.plugins.playerTickets.playerTicketCategory}> \nStaffTicketCategory: <#${guild.plugins.staffTickets.staffTicketCategory}> \nSupportTicketCategory: <#${guild.plugins.supportTickets.supportTicketCategory}> \nClosedTicketsCategory: <#${guild.channels.closedTicketsCategory}> \nDemandeRPCategory: <#${guild.plugins.demandeRP.demandeRPCategory}>`)
 
             const setupRolesEmbed = new MessageEmbed()
                 .setColor('RANDOM')
@@ -241,9 +245,6 @@ module.exports = {
                 .setDescription(`Villageois <@&${guild.roles.villageois}>\n Recruteur <@&${guild.roles.recruteur}>`)
 
             interaction.reply({embeds: [setupChanEmbed,setupRolesEmbed], ephemeral: true});
-            
-
-        
 
         break;
 
@@ -282,11 +283,28 @@ module.exports = {
                         candidMsg = 'Faire une demande RP'
                         await updateCandidMsg(guild,plugin[i],chanToSend,dbTosend,candidMsg);
                     break;
-                    case "recrutement":
-                        guild.plugins.recrutement = plugin[i].value;
-                    break;
                     case "antiraid":
                         guild.plugins.antiRaid.enable = plugin[i].value;
+                    break;
+                    case "recensementpl":
+                        if(plugin[i].value == guild.plugins.recensementPl)return;
+                        guild.plugins.recensementPl = plugin[i].value;
+
+                        if(plugin[i].value){
+                        const recensementEmbed = new MessageEmbed()
+                            .setColor('RANDOM')
+                            .setTitle(`Recensement`)
+                            .setDescription(`Ici se trouvera les places disponibles dans les villages/clans`)
+
+                            interaction.guild.channels.cache.get(guild.channels.recensement).send({embeds:[recensementEmbed]}).then(msg => {
+                            guild.plugins.recensementMsg = msg.id;
+                            guild.save();
+                        })
+                        }else{
+                            msg = await interaction.guild.channels.cache.get(guild.channels.recensement).messages.fetch(guild.plugins.recensementMsg);
+                            msg.delete();
+                            guild.plugins.recensementMsg = null;
+                        }
                     break;
                 }
                 
@@ -330,7 +348,7 @@ module.exports = {
             let setupPlugEmbed = new MessageEmbed()
                 .setColor('RANDOM')
                 .setTitle(`Statut des pluggins`)
-                .setDescription(`PlayerTickets: ${guild.plugins.playerTickets.enabled ? ":white_check_mark:" : ":x: "} \nStaffTickets: ${guild.plugins.staffTickets.enabled ? ":white_check_mark:" : ":x: "} \nSupportTickets: ${guild.plugins.supportTickets.enabled ? ":white_check_mark:" : ":x: "} \nAntiRaid: ${guild.plugins.antiRaid.enable ? ":white_check_mark:" : ":x: "} \nAntiRaid: ${guild.plugins.recrutement ? ":white_check_mark:" : ":x: "}`)
+                .setDescription(`PlayerTickets: ${guild.plugins.playerTickets.enabled ? ":white_check_mark:" : ":x: "} \nStaffTickets: ${guild.plugins.staffTickets.enabled ? ":white_check_mark:" : ":x: "} \nSupportTickets: ${guild.plugins.supportTickets.enabled ? ":white_check_mark:" : ":x: "} \nAntiRaid: ${guild.plugins.antiRaid.enable ? ":white_check_mark:" : ":x: "} \nrecensement: ${guild.plugins.recensementPl ? ":white_check_mark:" : ":x: "}`)
 
             interaction.reply({embeds: [setupPlugEmbed], ephemeral: true});
 

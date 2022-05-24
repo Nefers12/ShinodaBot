@@ -16,48 +16,129 @@ const guildSchema = new Schema({
 		tickets: String,
 		boost: String,
 		partenariat: String,
+		recensement: String,
 		closedTicketsCategory: String,
 	},
-	recrutement:{
+	recensement:{
 		konoha:{
 			place: Number,
-			uchiwa: Number,
-			hyuga: Number,
-			senju: Number,
-			nara: Number,
-			uzumaki: Number,
+			placemax: Number,
+			uchiwa:{
+				place: Number,
+				placemax: Number,
+			},
+			hyuga:{
+				place: Number,
+				placemax: Number,
+			},
+			senju:{
+				place: Number,
+				placemax: Number,
+			},
+			nara:{
+				place: Number,
+				placemax: Number,
+			},
+			uzumaki:{
+				place: Number,
+				placemax: Number,
+			}
 		},
 		kiri:{
 			place: Number,
-			momochi: Number,
-			yuki: Number,
-			kaguya: Number,
-			karatashi: Number,
-			hoshigaki: Number,
+			placemax: Number,
+			momochi:{
+				place: Number,
+				placemax: Number,
+			},
+			yuki:{
+				place: Number,
+				placemax: Number,
+			},
+			kaguya:{
+				place: Number,
+				placemax: Number,
+			},
+			karatashi:{
+				place: Number,
+				placemax: Number,
+			},
+			hoshigaki:{
+				place: Number,
+				placemax: Number,
+			},
 		},
 		suna:{
 			place: Number,
-			shirogane: Number,
-			kibin: Number,
-			tatsumaki: Number,
-			taku: Number,
-			hôki: Number,
+			placemax: Number,
+			shirogane:{
+				place: Number,
+				placemax: Number,
+			},
+			kibin:{
+				place: Number,
+				placemax: Number,
+			},
+			tatsumaki:{
+				place: Number,
+				placemax: Number,
+			},
+			taku:{
+				place: Number,
+				placemax: Number,
+			} ,
+			hôki:{
+				place: Number,
+				placemax: Number,
+			} ,
 		},
 		kumo:{
 			place: Number,
-			chinoike: Number,
-			arashi: Number,
-			yotsuki: Number,
-			fujiwara: Number,
-			hatori: Number,
+			placemax: Number,
+			chinoike:{
+				place: Number,
+				placemax: Number,
+			} ,
+			arashi:{
+				place: Number,
+				placemax: Number,
+			} ,
+			yotsuki:{
+				place: Number,
+				placemax: Number,
+			} ,
+			fujiwara:{
+				place: Number,
+				placemax: Number,
+			} ,
+			hatori:{
+				place: Number,
+				placemax: Number,
+			} ,
 		},
 		iwa:{
 			place: Number,
-			kamizuru: Number,
-			motori: Number,
-			bakuhatsu: Number,
-			bakuho: Number,
-			kaemuri: Number,
+			placemax: Number,
+			kamizuru: {
+				place: Number,
+				placemax: Number,
+			},
+			motori:{
+				place: Number,
+				placemax: Number,
+			} ,
+			bakuhatsu:{
+				place: Number,
+				placemax: Number,
+			} ,
+			bakuho:{
+				place: Number,
+				placemax: Number,
+			} ,
+			kaemuri:{
+				place: Number,
+				placemax: Number,
+			},
 		},
 	},
 	plugins:{
@@ -84,7 +165,8 @@ const guildSchema = new Schema({
 		antiRaid: {
 			enable: { type: Boolean, default: false },
 		},
-		recrutement: Boolean,
+		recensementPl: Boolean,
+		recensementMsg: String,
 	}
 });
 

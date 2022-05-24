@@ -17,85 +17,146 @@ module.exports = {
         const guildCreate = await new Guild({
             guildId: devGuild.id,
             name: devGuild.name,
-            channels: {
-                logs: '',
-                question: '',
-                suggestion: '',
-                join: '',
-                candidature: '',
-                tickets: '',
-                boost: '',
-                closedTicketsCategory: '',
-            },
-            recrutement:{
-                konoha:{
-                    place: 0,
-                    uchiwa: 0,
-                    hyuga: 0,
-                    senju: 0,
-                    nara: 0,
-                    uzumaki: 0,
-                },
-                kiri:{
-                    place: 0,
-                    momochi: 0,
-                    yuki: 0,
-                    kaguya: 0,
-                    karatashi: 0,
-                    hoshigaki: 0,
-                },
-                suna:{
-                    place: 0,
-                    shirogane: 0,
-                    kibin: 0,
-                    tatsumaki: 0,
-                    taku: 0,
-                    hôki: 0,
-                },
-                kumo:{
-                    place: 0,
-                    chinoike: 0,
-                    arashi: 0,
-                    yotsuki: 0,
-                    fujiwara: 0,
-                    hatori: 0,
-                },
-                iwa:{
-                    place: 0,
-                    kamizuru: 0,
-                    motori: 0,
-                    bakuhatsu: 0,
-                    bakuho: 0,
-                    kaemuri: 0,
-                },
-            },
             plugins:{
                 playerTickets:{
                     enabled: false,
-                    messageID: '',
-                    playerTicketCategory: '',
-                    closedPlayerTicketCategory: '',
                 },
                 staffTickets:{
                     enabled: false,
-                    messageID: '',
-                    staffTicketCategory: '',
-                    closedStaffTicketCategory: '',
                 },
                 supportTickets:{
                     enabled: false,
-                    messageID: '',
-                    supportTicketCategory: '',
-                    closedSupportTicketCategory: '',
+                },
+                demandeRP:{
+                    enable: false,
                 },
                 antiRaid: {
                     enable: false,
                 },
-                recrutement: false,
+                recensementPl: false,
             },
-            roles:{
-                villageois: '',
-            }
+            recensement:{
+                konoha:{
+                    place: 0,
+                    placemax: 0,
+                    uchiwa:{
+                        place: 0,
+                        placemax: 0,
+                    },
+                    hyuga:{
+                        place: 0,
+                        placemax: 0,
+                    },
+                    senju:{
+                        place: 0,
+                        placemax: 0,
+                    },
+                    nara:{
+                        place: 0,
+                        placemax: 0,
+                    },
+                    uzumaki:{
+                        place: 0,
+                        placemax: 0,
+                    }
+                },
+                kiri:{
+                    place: 0,
+                    placemax: 0,
+                    momochi:{
+                        place: 0,
+                        placemax: 0,
+                    },
+                    yuki:{
+                        place: 0,
+                        placemax: 0,
+                    },
+                    kaguya:{
+                        place: 0,
+                        placemax: 0,
+                    },
+                    karatashi:{
+                        place: 0,
+                        placemax: 0,
+                    },
+                    hoshigaki:{
+                        place: 0,
+                        placemax: 0,
+                    },
+                },
+                suna:{
+                    place: 0,
+                    placemax: 0,
+                    shirogane:{
+                        place: 0,
+                        placemax: 0,
+                    },
+                    kibin:{
+                        place: 0,
+                        placemax: 0,
+                    },
+                    tatsumaki:{
+                        place: 0,
+                        placemax: 0,
+                    },
+                    taku:{
+                        place: 0,
+                        placemax: 0,
+                    } ,
+                    hôki:{
+                        place: 0,
+                        placemax: 0,
+                    } ,
+                },
+                kumo:{
+                    place: 0,
+                    placemax: 0,
+                    chinoike:{
+                        place: 0,
+                        placemax: 0,
+                    } ,
+                    arashi:{
+                        place: 0,
+                        placemax: 0,
+                    } ,
+                    yotsuki:{
+                        place: 0,
+                        placemax: 0,
+                    } ,
+                    fujiwara:{
+                        place: 0,
+                        placemax: 0,
+                    } ,
+                    hatori:{
+                        place: 0,
+                        placemax: 0,
+                    } ,
+                },
+                iwa:{
+                    place: 0,
+                    placemax: 0,
+                    kamizuru: {
+                        place: 0,
+                        placemax: 0,
+                    },
+                    motori:{
+                        place: 0,
+                        placemax: 0,
+                    } ,
+                    bakuhatsu:{
+                        place: 0,
+                        placemax: 0,
+                    } ,
+                    bakuho:{
+                        place: 0,
+                        placemax: 0,
+                    } ,
+                    kaemuri:{
+                        place: 0,
+                        placemax: 0,
+                    },
+                },
+            },
         });
 
         if(!guild){
@@ -107,19 +168,12 @@ module.exports = {
 
         async function cacheGuild(guild) {
             Cache.set( "guild", guild);
-            Cache.set( "channels", guild.channels);
             Cache.set( "playerTickets", guild.plugins.playerTickets);
             Cache.set( "staffTickets", guild.plugins.staffTickets);
             Cache.set( "supportTickets", guild.plugins.supportTickets);
             Cache.set( "demandeRP", guild.plugins.demandeRP);
-            Cache.set( "supportTickets", guild.plugins.supportTickets);
             Cache.set( "antiRaid", guild.plugins.antiRaid);
-            Cache.set( "roles", guild.roles);
-            Cache.set( "Konoha", guild.recrutement.konoha);
-            Cache.set( "Kiri", guild.recrutement.kiri);
-            Cache.set( "Suna", guild.recrutement.suna);
-            Cache.set( "Kumo", guild.recrutement.kumo);
-            Cache.set( "Iwa", guild.recrutement.iwa);
+            Cache.set( "recensementpl", guild.plugins.recensementPl);
         }
 
         setInterval(async () => {

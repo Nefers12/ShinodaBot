@@ -2434,9 +2434,9 @@ module.exports = {
 		"zguègue",
 	],
 	messagesCount:[]
-	,Konoha:['Uchiwa','Hyuga','Senju','Nara','Uzumaki'],
-	Kiri:['Momochi','Yuki','Kaguya','Karatashi','Hoshigaki'],
-	Suna:['Shirogane','Kibin','Tatsumaki','Taku','Hôki'],
-	Kumo:['Chinoike','Arashi','Yotsuki','Fujiwara','Hatori'],
-	Iwa:['Kamizuru','Motori','Bakuhatsu','Bakuho','Kaemuri']
+	,konoha:['Uchiwa','Hyuga','Senju','Nara','Uzumaki'],
+	kiri:['Momochi','Yuki','Kaguya','Karatashi','Hoshigaki'],
+	suna:['Shirogane','Kibin','Tatsumaki','Taku','Hôki'],
+	kumo:['Chinoike','Arashi','Yotsuki','Fujiwara','Hatori'],
+	iwa:['Kamizuru','Motori','Bakuhatsu','Bakuho','Kaemuri']
 };
