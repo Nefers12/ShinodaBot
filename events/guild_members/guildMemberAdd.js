@@ -1,8 +1,5 @@
 const dotenv = require('dotenv'); dotenv.config();
-const { User } = require('../../db/models/index');
-const { Cache } = require('../../index');
-const { Guild } = require('../../db/models/index');
-const guild = require('../../db/models/guild.js');
+const { User,Guild } = require('../../db/models/index');
 const { MessageEmbed, MessageAttachment } = require('discord.js');
 
 module.exports = {
@@ -12,13 +9,8 @@ module.exports = {
 
         const user = await User.findOne({ userId: member.id });
 
-        guild.channels = Cache.get( "channels" );
-        guild.roles = Cache.get( "roles" );
-        if(!guild){
+
             guild = await Guild.findOne({ guildId: member.guild.id });
-            Cache.set( "channels", guild.channels);
-            Cache.set( "roles", guild.roles);
-        };
 
         let rdm = Math.floor(Math.random() * 2);
         const file = new MessageAttachment(`./img/${rdm}.png`);
