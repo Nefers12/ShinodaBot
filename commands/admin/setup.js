@@ -162,6 +162,11 @@ module.exports = {
                     description: "role iwa",
                     type: 8
                 },
+                {
+                    name: "autres",
+                    description: "role autres",
+                    type: 8
+                },
             ]
         }
     ],
@@ -266,6 +271,9 @@ module.exports = {
                 case "recensement":
                     guild.channels.recensement = option[i].value;
                     break;
+                case "autres":
+                    guild.roles.autres = option[i].value;
+                    break;
             }
             
         }
@@ -290,7 +298,7 @@ module.exports = {
             const setupRolesEmbed = new MessageEmbed()
                 .setColor('RANDOM')
                 .setTitle(`Liste des roles`)
-                .setDescription(`Villageois <@&${guild.roles.villageois}>\n Recruteur <@&${guild.roles.recruteur}>`)
+                .setDescription(`Villageois :<@&${guild.roles.villageois}>\n Recruteur :<@&${guild.roles.recruteur}>\n Konoha :<@&${guild.roles.konoha}>\n Kiri :<@&${guild.roles.kiri}>\n Suna :<@&${guild.roles.suna}>\n Kumo :<@&${guild.roles.kumo}>\n Iwa :<@&${guild.roles.iwa}>\n Autres :<@&${guild.roles.autres}>`)
 
             interaction.reply({embeds: [setupChanEmbed,setupRolesEmbed], ephemeral: true});
 

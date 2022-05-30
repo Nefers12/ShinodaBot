@@ -150,26 +150,28 @@ module.exports = {
                     interaction.deferUpdate()
                     break;
                 case 'Konoha':
-                    crateClanButtons(konoha);
+                    crateClanButtons(konoha,"konoha");
                     interaction.deferUpdate()
                     break;
                 case 'Kiri':
-                    crateClanButtons(kiri);
+                    crateClanButtons(kiri,"kiri");
                     interaction.deferUpdate()
                     break;
                 case 'Suna':
-                    crateClanButtons(suna);
+                    crateClanButtons(suna,"suna");
                     interaction.deferUpdate()
                     break;
                 case 'Kumo':
-                    crateClanButtons(kumo);
+                    crateClanButtons(kumo,"kumo");
                     interaction.deferUpdate()
                     break;
                 case 'Iwa':
-                    crateClanButtons(iwa);
+                    crateClanButtons(iwa,"iwa");
                     interaction.deferUpdate()
                     break;
                 case 'Autres':
+                    editClans(null,"autres");
+                    interaction.deferUpdate()
                     break;
                 case 'Uchiwa':
                     editClans("uchiwa","konoha");
@@ -271,6 +273,26 @@ module.exports = {
                     editClans("kaemuri","iwa");
                     interaction.deferUpdate()
                     break;
+                case 'Autre konoha':
+                    editClans("autres","konoha");
+                    interaction.deferUpdate()
+                    break;
+                case 'Autre kiri':
+                    editClans("autres","kiri");
+                    interaction.deferUpdate()
+                    break;
+                case 'Autre suna':
+                    editClans("autres","suna");
+                    interaction.deferUpdate()
+                    break;
+                case 'Autre kumo':
+                    editClans("autres","kumo");
+                    interaction.deferUpdate()
+                    break;
+                case 'Autre iwa':
+                    editClans("autres","iwa");
+                    interaction.deferUpdate()
+                    break;
             }
 
             async function dbUpdate(user,type,guild,dbToUse,row,textToDisplay){
@@ -330,7 +352,7 @@ module.exports = {
                 })
             }
 
-            async function crateClanButtons(clan){
+            async function crateClanButtons(clan,clanName){
 
                 if(!interaction.member.roles.cache.has(guild.roles.recruteur))return;
 
@@ -342,24 +364,35 @@ module.exports = {
                                 .setStyle('SUCCESS')
                                 .setCustomId(clan[i]))
                             }
+
                 
-                interaction.message.edit({embeds:[wlEmbed],components:[rowclan]})
+                const rowAutre = new MessageActionRow()
+                    rowAutre.addComponents(
+                        new MessageButton()
+                                .setLabel(`Autre ${clanName}`)
+                                .setStyle('SUCCESS')
+                                .setCustomId(`Autre ${clanName}`))
+                
+                
+                interaction.message.edit({embeds:[wlEmbed],components:[rowclan,rowAutre]})
             }
 
             async function editClans(clan,village){
-                interaction.message.edit({embeds:[wlEmbed],components:[]})
-                guild.recensement[village][clan].place++;
-                guild.recensement[village].place++;
+
+                    interaction.message.edit({embeds:[wlEmbed],components:[]})
+                    if(clan)guild.recensement[village][clan].place++;
+                    guild.recensement[village].place++;
 
                 const recensementEmbed = new MessageEmbed()
                 .setColor('RANDOM')
                 .setTitle(`Recensement`)
                 .setDescription(`**Ici se trouve les places disponibles dans les villages/clans**`)
-                .addField(`Konoha : ${guild.recensement.konoha.place}/${guild.recensement.konoha.placemax}`,"```"+ `Uchiwa : ${guild.recensement.konoha.uchiwa.place}/${guild.recensement.konoha.uchiwa.placemax}\nHyuga : ${guild.recensement.konoha.hyuga.place}/${guild.recensement.konoha.hyuga.placemax}\nSenju : ${guild.recensement.konoha.senju.place}/${guild.recensement.konoha.senju.placemax}\nNara : ${guild.recensement.konoha.nara.place}/${guild.recensement.konoha.nara.placemax}\nUzumaki : ${guild.recensement.konoha.uzumaki.place}/${guild.recensement.konoha.uzumaki.placemax}`+ "```")
-                .addField(`Kiri : ${guild.recensement.kiri.place}/${guild.recensement.kiri.placemax}`,"```"+ `Momochi : ${guild.recensement.kiri.momochi.place}/${guild.recensement.kiri.momochi.placemax}\nYuki : ${guild.recensement.kiri.yuki.place}/${guild.recensement.kiri.yuki.placemax}\nKaguya : ${guild.recensement.kiri.kaguya.place}/${guild.recensement.kiri.kaguya.placemax}\nKaratashi : ${guild.recensement.kiri.karatashi.place}/${guild.recensement.kiri.karatashi.placemax}\nHoshigaki : ${guild.recensement.kiri.hoshigaki.place}/${guild.recensement.kiri.hoshigaki.placemax}`+ "```")
-                .addField(`Suna : ${guild.recensement.suna.place}/${guild.recensement.suna.placemax}`,"```"+ `Shirogane : ${guild.recensement.suna.shirogane.place}/${guild.recensement.suna.shirogane.placemax}\nKibin : ${guild.recensement.suna.kibin.place}/${guild.recensement.suna.kibin.placemax}\nTatsumaki : ${guild.recensement.suna.tatsumaki.place}/${guild.recensement.suna.tatsumaki.placemax}\nTaku : ${guild.recensement.suna.taku.place}/${guild.recensement.suna.taku.placemax}\nHôki : ${guild.recensement.suna.hôki.place}/${guild.recensement.suna.hôki.placemax}`+ "```")
-                .addField(`Kumo : ${guild.recensement.kumo.place}/${guild.recensement.kumo.placemax}`,"```"+ `Chinoike : ${guild.recensement.kumo.chinoike.place}/${guild.recensement.kumo.chinoike.placemax}\nArashi : ${guild.recensement.kumo.arashi.place}/${guild.recensement.kumo.arashi.placemax}\nYotsuki : ${guild.recensement.kumo.yotsuki.place}/${guild.recensement.kumo.yotsuki.placemax}\nFujiwara : ${guild.recensement.kumo.fujiwara.place}/${guild.recensement.kumo.fujiwara.placemax}\nHatori : ${guild.recensement.kumo.hatori.place}/${guild.recensement.kumo.hatori.placemax}`+ "```")
-                .addField(`Iwa : ${guild.recensement.iwa.place}/${guild.recensement.iwa.placemax}`,"```"+ `Kamizuru : ${guild.recensement.iwa.kamizuru.place}/${guild.recensement.iwa.kamizuru. placemax}\nMotori : ${guild.recensement.iwa.motori.place}/${guild.recensement.iwa.motori.placemax}\nBakuhatsu : ${guild.recensement.iwa.bakuhatsu.place}/${guild.recensement.iwa.bakuhatsu.placemax}\nBakuho : ${guild.recensement.iwa.bakuho.place}/${guild.recensement.iwa.bakuho.placemax}\nKaemuri : ${guild.recensement.iwa.kaemuri.place}/${guild.recensement.iwa.kaemuri.placemax}`+ "```")
+                .addField(`Konoha : ${guild.recensement.konoha.place}/${guild.recensement.konoha.placemax}`,"```"+ `Uchiwa : ${guild.recensement.konoha.uchiwa.place}/${guild.recensement.konoha.uchiwa.placemax}\nHyuga : ${guild.recensement.konoha.hyuga.place}/${guild.recensement.konoha.hyuga.placemax}\nSenju : ${guild.recensement.konoha.senju.place}/${guild.recensement.konoha.senju.placemax}\nNara : ${guild.recensement.konoha.nara.place}/${guild.recensement.konoha.nara.placemax}\nUzumaki : ${guild.recensement.konoha.uzumaki.place}/${guild.recensement.konoha.uzumaki.placemax}\nAutre : ${guild.recensement.konoha.autres.place}/${guild.recensement.konoha.autres.placemax}`+ "```")
+                .addField(`Kiri : ${guild.recensement.kiri.place}/${guild.recensement.kiri.placemax}`,"```"+ `Momochi : ${guild.recensement.kiri.momochi.place}/${guild.recensement.kiri.momochi.placemax}\nYuki : ${guild.recensement.kiri.yuki.place}/${guild.recensement.kiri.yuki.placemax}\nKaguya : ${guild.recensement.kiri.kaguya.place}/${guild.recensement.kiri.kaguya.placemax}\nKaratashi : ${guild.recensement.kiri.karatashi.place}/${guild.recensement.kiri.karatashi.placemax}\nHoshigaki : ${guild.recensement.kiri.hoshigaki.place}/${guild.recensement.kiri.hoshigaki.placemax}\nAutre : ${guild.recensement.kiri.autres.place}/${guild.recensement.kiri.autres.placemax}`+ "```")
+                .addField(`Suna : ${guild.recensement.suna.place}/${guild.recensement.suna.placemax}`,"```"+ `Shirogane : ${guild.recensement.suna.shirogane.place}/${guild.recensement.suna.shirogane.placemax}\nKibin : ${guild.recensement.suna.kibin.place}/${guild.recensement.suna.kibin.placemax}\nTatsumaki : ${guild.recensement.suna.tatsumaki.place}/${guild.recensement.suna.tatsumaki.placemax}\nTaku : ${guild.recensement.suna.taku.place}/${guild.recensement.suna.taku.placemax}\nHôki : ${guild.recensement.suna.hôki.place}/${guild.recensement.suna.hôki.placemax}\nAutre : ${guild.recensement.suna.autres.place}/${guild.recensement.suna.autres.placemax}`+ "```")
+                .addField(`Kumo : ${guild.recensement.kumo.place}/${guild.recensement.kumo.placemax}`,"```"+ `Chinoike : ${guild.recensement.kumo.chinoike.place}/${guild.recensement.kumo.chinoike.placemax}\nArashi : ${guild.recensement.kumo.arashi.place}/${guild.recensement.kumo.arashi.placemax}\nYotsuki : ${guild.recensement.kumo.yotsuki.place}/${guild.recensement.kumo.yotsuki.placemax}\nFujiwara : ${guild.recensement.kumo.fujiwara.place}/${guild.recensement.kumo.fujiwara.placemax}\nHatori : ${guild.recensement.kumo.hatori.place}/${guild.recensement.kumo.hatori.placemax}\nAutre : ${guild.recensement.kumo.autres.place}/${guild.recensement.kumo.autres.placemax}`+ "```")
+                .addField(`Iwa : ${guild.recensement.iwa.place}/${guild.recensement.iwa.placemax}`,"```"+ `Kamizuru : ${guild.recensement.iwa.kamizuru.place}/${guild.recensement.iwa.kamizuru. placemax}\nMotori : ${guild.recensement.iwa.motori.place}/${guild.recensement.iwa.motori.placemax}\nBakuhatsu : ${guild.recensement.iwa.bakuhatsu.place}/${guild.recensement.iwa.bakuhatsu.placemax}\nBakuho : ${guild.recensement.iwa.bakuho.place}/${guild.recensement.iwa.bakuho.placemax}\nKaemuri : ${guild.recensement.iwa.kaemuri.place}/${guild.recensement.iwa.kaemuri.placemax}\nAutre : ${guild.recensement.iwa.autres.place}/${guild.recensement.iwa.autres.placemax}`+ "```")
+                .addField(`Autre :`,"```"+ `${guild.recensement.autres.place}/${guild.recensement.autres.placemax}`+ "```")
     
                 await guild.save()
                 msg = await interaction.guild.channels.cache.get(guild.channels.recensement).messages.fetch(guild.plugins.recensementMsg);

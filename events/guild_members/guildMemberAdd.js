@@ -9,7 +9,6 @@ module.exports = {
 
         const user = await User.findOne({ userId: member.id });
 
-
             guild = await Guild.findOne({ guildId: member.guild.id });
 
         let rdm = Math.floor(Math.random() * 2);
@@ -26,15 +25,10 @@ module.exports = {
             .setTitle(`${member.user.username} a rejoint le serveur`)
             .setAuthor({ name : member.user.username,iconURL: member.displayAvatarURL()})
             .setDescription(`création du compte : Le <t:${parseInt(member.user.createdTimestamp / 1000, 10)}:d> `)
-        
-
 
             member.guild.channels.cache.get(guild.channels.join).send({embeds: [welcomeEmbed], files: [file]});
             member.guild.channels.cache.get(guild.channels.logs).send({embeds: [logsEmbed]});
             if(!member.roles.cache.has(member.guild.roles.cache.get(guild.roles.villageois))) member.roles.add(member.guild.roles.cache.get(guild.roles.villageois));
-
-
-            
 
         if(!user) {
 

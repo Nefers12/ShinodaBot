@@ -11,6 +11,7 @@ const guildSchema = new Schema({
 		suna: String,
 		kumo: String,
 		iwa: String,
+		autres: String,
 	},
 	channels: {
 		logs: String,
@@ -26,6 +27,10 @@ const guildSchema = new Schema({
 		acceptedTicketsCategory: String,
 	},
 	recensement:{
+		autres:{
+			place: Number,
+			placemax: Number,
+		},
 		konoha:{
 			place: Number,
 			placemax: Number,
@@ -46,6 +51,10 @@ const guildSchema = new Schema({
 				placemax: Number,
 			},
 			uzumaki:{
+				place: Number,
+				placemax: Number,
+			},
+			autres:{
 				place: Number,
 				placemax: Number,
 			}
@@ -73,6 +82,10 @@ const guildSchema = new Schema({
 				place: Number,
 				placemax: Number,
 			},
+			autres:{
+				place: Number,
+				placemax: Number,
+			}
 		},
 		suna:{
 			place: Number,
@@ -96,7 +109,11 @@ const guildSchema = new Schema({
 			hôki:{
 				place: Number,
 				placemax: Number,
-			} ,
+			},
+			autres:{
+				place: Number,
+				placemax: Number,
+			}
 		},
 		kumo:{
 			place: Number,
@@ -120,7 +137,11 @@ const guildSchema = new Schema({
 			hatori:{
 				place: Number,
 				placemax: Number,
-			} ,
+			},
+			autres:{
+				place: Number,
+				placemax: Number,
+			}
 		},
 		iwa:{
 			place: Number,
@@ -145,6 +166,10 @@ const guildSchema = new Schema({
 				place: Number,
 				placemax: Number,
 			},
+			autres:{
+				place: Number,
+				placemax: Number,
+			}
 		},
 	},
 	plugins:{

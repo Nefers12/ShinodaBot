@@ -2433,8 +2433,8 @@ module.exports = {
 		"zguegue",
 		"zguègue",
 	],
-	messagesCount:[]
-	,konoha:['Uchiwa','Hyuga','Senju','Nara','Uzumaki'],
+	messagesCount:[],
+	konoha:['Uchiwa','Hyuga','Senju','Nara','Uzumaki'],
 	kiri:['Momochi','Yuki','Kaguya','Karatashi','Hoshigaki'],
 	suna:['Shirogane','Kibin','Tatsumaki','Taku','Hôki'],
 	kumo:['Chinoike','Arashi','Yotsuki','Fujiwara','Hatori'],

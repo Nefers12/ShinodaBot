@@ -11,6 +11,10 @@ module.exports = {
         const guild = await Guild.findOne({ guildId: interaction.guild.id });
 
         guild.recensement={
+            autres:{
+                place: 0,
+                placemax: 0,
+            },
             konoha:{
                 place: 0,
                 placemax: 0,
@@ -31,6 +35,10 @@ module.exports = {
                     placemax: 0,
                 },
                 uzumaki:{
+                    place: 0,
+                    placemax: 0,
+                },
+                autres:{
                     place: 0,
                     placemax: 0,
                 }
@@ -58,6 +66,10 @@ module.exports = {
                     place: 0,
                     placemax: 0,
                 },
+                autres:{
+                    place: 0,
+                    placemax: 0,
+                }
             },
             suna:{
                 place: 0,
@@ -82,6 +94,10 @@ module.exports = {
                     place: 0,
                     placemax: 0,
                 } ,
+                autres:{
+                    place: 0,
+                    placemax: 0,
+                }
             },
             kumo:{
                 place: 0,
@@ -106,6 +122,10 @@ module.exports = {
                     place: 0,
                     placemax: 0,
                 } ,
+                autres:{
+                    place: 0,
+                    placemax: 0,
+                }
             },
             iwa:{
                 place: 0,
@@ -130,8 +150,12 @@ module.exports = {
                     place: 0,
                     placemax: 0,
                 },
+                autres:{
+                    place: 0,
+                    placemax: 0,
+                }
             },
-    }
+        },
 
     guild.save();
 
