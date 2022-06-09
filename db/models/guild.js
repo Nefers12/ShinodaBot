@@ -12,6 +12,7 @@ const guildSchema = new Schema({
 		kumo: String,
 		iwa: String,
 		autres: String,
+		booster: String,
 	},
 	channels: {
 		logs: String,

@@ -167,6 +167,11 @@ module.exports = {
                     description: "role autres",
                     type: 8
                 },
+                {
+                    name: "booster",
+                    description: "role booster",
+                    type: 8
+                },
             ]
         }
     ],
@@ -274,6 +279,9 @@ module.exports = {
                 case "autres":
                     guild.roles.autres = option[i].value;
                     break;
+                case "booster":
+                    guild.roles.booster = option[i].value;
+                    break;
             }
             
         }
@@ -298,7 +306,7 @@ module.exports = {
             const setupRolesEmbed = new MessageEmbed()
                 .setColor('RANDOM')
                 .setTitle(`Liste des roles`)
-                .setDescription(`Villageois :<@&${guild.roles.villageois}>\n Recruteur :<@&${guild.roles.recruteur}>\n Konoha :<@&${guild.roles.konoha}>\n Kiri :<@&${guild.roles.kiri}>\n Suna :<@&${guild.roles.suna}>\n Kumo :<@&${guild.roles.kumo}>\n Iwa :<@&${guild.roles.iwa}>\n Autres :<@&${guild.roles.autres}>`)
+                .setDescription(`Villageois :<@&${guild.roles.villageois}>\n Recruteur :<@&${guild.roles.recruteur}>\n Konoha :<@&${guild.roles.konoha}>\n Kiri :<@&${guild.roles.kiri}>\n Suna :<@&${guild.roles.suna}>\n Kumo :<@&${guild.roles.kumo}>\n Iwa :<@&${guild.roles.iwa}>\n Autres :<@&${guild.roles.autres}>\n Booster: <@&${guild.roles.booster}>`)
 
             interaction.reply({embeds: [setupChanEmbed,setupRolesEmbed], ephemeral: true});
 
