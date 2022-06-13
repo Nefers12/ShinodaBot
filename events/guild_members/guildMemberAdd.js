@@ -26,8 +26,14 @@ module.exports = {
             .setAuthor({ name : member.user.username,iconURL: member.displayAvatarURL()})
             .setDescription(`création du compte : Le <t:${parseInt(member.user.createdTimestamp / 1000, 10)}:d> `)
 
+        const generalEmbed = new MessageEmbed()
+            .setColor('RANDOM')
+            .setDescription(`**Veuillez souhaiter la bienvenue à ${member.user}**\nN’hésite pas à faire ta candidature rp dans <#${guild.channels.candidature}>`)
+            .setFooter({ text: 'Shinoda', iconURL: 'https://cdn.discordapp.com/attachments/970725972032770111/985957770866081832/F2109933-283B-44C3-83E5-3888721D5C09.png' });
+
             member.guild.channels.cache.get(guild.channels.join).send({embeds: [welcomeEmbed], files: [file]});
             member.guild.channels.cache.get(guild.channels.logs).send({embeds: [logsEmbed]});
+            member.guild.channels.cache.get(guild.channels.general).send({embeds: [generalEmbed]});
             if(!member.roles.cache.has(member.guild.roles.cache.get(guild.roles.villageois))) member.roles.add(member.guild.roles.cache.get(guild.roles.villageois));
 
         if(!user) {

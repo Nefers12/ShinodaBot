@@ -3,6 +3,7 @@ const { Guild } = require('../../db/models/index');
 
 module.exports = {
     name: 'suggestion',
+    permissions: ['SEND_MESSAGES'],
     description : 'Créer un embed avec la suggestion',
     options : [{
         name:'suggestion',

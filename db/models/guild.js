@@ -26,6 +26,7 @@ const guildSchema = new Schema({
 		recensement: String,
 		closedTicketsCategory: String,
 		acceptedTicketsCategory: String,
+		general: String,
 	},
 	recensement:{
 		autres:{
