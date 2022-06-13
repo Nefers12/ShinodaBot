@@ -191,6 +191,7 @@ module.exports = {
         }
 
         async function cacheGuild(guild) {
+            Cache.set("channels", guild.channels);
             Cache.set( "guild", guild);
             Cache.set( "playerTickets", guild.plugins.playerTickets);
             Cache.set( "staffTickets", guild.plugins.staffTickets);

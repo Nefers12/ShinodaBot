@@ -23,7 +23,7 @@ module.exports = {
         };
 
 
-        if(message.channel != guild.channels.partenariat && message.content.includes('https://discord.gg/')) {
+        if(message.channel != guild.channels.partenariat && message.content.includes('https://discord.gg/') &&!message.member.permissions.has('BAN_MEMBERS')) {
             message.delete();
             message.guild.channels.cache.get(guild.channels.logs).send(`${message.author} a tenté d'envoyer une invitation dans le salon ${message.channel}`);
         }
