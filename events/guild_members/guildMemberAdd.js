@@ -8,15 +8,14 @@ module.exports = {
     async execute(client, member) {
 
         const user = await User.findOne({ userId: member.id });
-
-            guild = await Guild.findOne({ guildId: member.guild.id });
+        const guild = await Guild.findOne({ guildId: member.guild.id });
 
         let rdm = Math.floor(Math.random() * 2);
         const file = new MessageAttachment(`./img/${rdm}.png`);
 
         const welcomeEmbed = new MessageEmbed()
             .setColor('RANDOM')
-            .setDescription(`Bienvenue à toi <@${member.id}> sur le serveur **${member.guild.name}**\nTu fais parti des ${member.guild.memberCount} personnes présentes sur le serveur !\n\nN'oublie pas de lire les règles !`)
+            .setDescription(`Bienvenue à toi ${member.user} sur le serveur **${member.guild.name}**\nTu fais parti des ${member.guild.memberCount} personnes présentes sur le serveur !\n\nN'oublie pas de lire les règles !`)
             .setAuthor({ name : member.user.username,iconURL: member.displayAvatarURL()})
             .setImage(`attachment://${rdm}.png`);
 

@@ -1,5 +1,5 @@
-const { Client, Message, Collection } = require('discord.js');
-const dotenv = require('dotenv');const { readSync } = require('fs');
+const { Client, Collection } = require('discord.js');
+const dotenv = require('dotenv');
 const mongoose = require('mongoose');
  dotenv.config();
 const client = new Client({ intents: 515 });
