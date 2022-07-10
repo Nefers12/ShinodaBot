@@ -2,7 +2,7 @@ const { Client, Collection } = require('discord.js');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
  dotenv.config();
-const client = new Client({ intents: 98045 });
+const client = new Client({ intents: 131071 });
 
 const NodeCache = require( "node-cache" );
 const Cache = new NodeCache();
