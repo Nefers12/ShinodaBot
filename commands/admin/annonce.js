@@ -5,6 +5,7 @@ const http = require("https");
 
 module.exports = {
     name: 'annonce',
+    help:'Commande en cours de développement',
     permissions: ['ADMINISTRATOR'],
     description : 'créer un annonce',
 

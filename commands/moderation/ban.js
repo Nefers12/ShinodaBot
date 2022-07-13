@@ -4,6 +4,7 @@ module.exports = {
     name: 'ban',
     permissions: ['BAN_MEMBERS'],
     description : 'Bannis un utilisateur',
+    help:'Cette commande permet de bannir un utilisateur\n\nUtilisation : /ban <user> <raison>',
     options : [{
         name:'pseudo',
         description : 'Pseudo de l\'utilisateur à bannir',

@@ -5,6 +5,7 @@ module.exports = {
     name: 'question',
     permissions: ['SEND_MESSAGES'],
     description : 'Créer un embed avec la question',
+    help:'Cette commande permet de créer un embed avec votre question\n\nUtilisation : /question <question>',
     options : [{
         name:'question',
         description : 'Champ dans lequel la question doit être écrite',

@@ -1,4 +1,5 @@
 module.exports = {
+	helpTxt:'Voici comment fonctionne la notation : <> = obligatoire, [] = optionnel',
 	banlist: [
 		"!mb3c!l3",
 		"!mbec!l3",

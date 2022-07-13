@@ -5,7 +5,8 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'recensement',
     permissions: ['SEND_MESSAGES'],
-    description : 'permet d\'éditer les options de recensement',
+    description : 'permet d\'éditer le recensement',
+    help: 'Permet d\'éditer le recensement\n\nUtilisation : /recensement <categorie> <option>\n\nLes catégories clans et village permettent d\'éditer le nombre de joueurs présents dans ces derniers. Pour chaque catégorie qui finit par max il s\'agit des places maximums pour cette catégorie. "Autre" représente le clan autre de chaque village. Le village "Autre" se trouve dans la catégorie village.',
     options: [
         {
             name: "villagemax",

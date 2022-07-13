@@ -6,6 +6,7 @@ module.exports = {
     name: 'mute',
     permissions: ['BAN_MEMBERS'],
     description : 'Mute un utilisateur',
+    help:'Cette commande permet de mute un utilisateur\n\nUtilisation : /mute <user> <raison>',
     options : [{
         name:'pseudo',
         description : 'Pseudo de l\'utilisateur à mute',

@@ -2,6 +2,7 @@ module.exports = {
     name: 'unmute',
     permissions: ['BAN_MEMBERS'],
     description : 'Unmute un utilisateur',
+    help : 'Cette commande permet de unmute un utilisateur\n\nUtilisation : /unmute <pseudo>',
     options : [{
         name:'pseudo',
         description : 'Pseudo de l\'utilisateur à unmute',

@@ -5,6 +5,7 @@ module.exports = {
     name: 'recensementreset',
     permissions: ['ADMINISTRATOR'],
     description : 'Reinitialise le recensement',
+    help:'Cette commande permet de réinitialiser le recensement\n\nUtilisation : /recensementreset',
 
     runSlash: async (client, interaction) => {
 

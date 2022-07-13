@@ -4,7 +4,8 @@ const { User } = require('../../db/models/index');
 module.exports = {
     name: 'adduser',
     permissions: ['ADMINISTRATOR'],
-    description : 'Emmet un event',
+    help: 'Ajoute un utilisateur à la base de données\n\n Utilisation : /adduser <all> [user]\n\n Si all est défini sur true, tous les utilisateurs non présents dans la base de données seront ajoutés, sinon vous devez préciser un utilisateur dans le paramètre user',
+    description : 'Ajoute un utilisateur à la base de données',
     options : [{
         name:'all',
         description : 'faut-il ajouter tous les users ?',
@@ -12,7 +13,7 @@ module.exports = {
         required: true,
     },{
         name:'user',
-        description : 'User à ajouter',
+        description : 'Utilisateur à ajouter',
         type : 'USER',
         required: false,
     }],

@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'emit',
+    help:'Si tu sais pas trop comment ça marche, c\'est surement que tu n\'a pas le droit de l\'utiliser',
     description : 'Emmet un event',
     permissions: ['ADMINISTRATOR'],
     options : [{

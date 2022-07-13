@@ -5,6 +5,7 @@ module.exports = {
     name: 'stic',
     permissions: ['BAN_MEMBERS'],
     description : 'Montre les infractions de l\'utilisateur',
+    help:'Cette commande permet de montrer les infractions d\'un utilisateur\n\nUtilisation : /stic <user>',
     options : [{
         name:'pseudo',
         description : 'Pseudo de l\'utilisateur',

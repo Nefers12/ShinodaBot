@@ -6,6 +6,7 @@ module.exports = {
     name: "setup",
     description: "setup the guild",
     permissions: ['ADMINISTRATOR'],
+    help:'Cette commande permet de configurer le serveur\n\nUtilisation : /setup <option>\n\nRoles permet de définir les rôles, Channels permet de définir les channels et Pluggins permet d\'activer/désactiver les plugins (tickets etc.)',
     options: [
         {
             name: "channels",

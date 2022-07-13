@@ -4,6 +4,7 @@ module.exports = {
     name: 'warn',
     permissions: ['BAN_MEMBERS'],
     description : 'Warn un utilisateur',
+    help:'Cette commande permet de warn un utilisateur\n\nUtilisation : /warn <user> <raison>',
     options : [{
         name:'pseudo',
         description : 'Pseudo de l\'utilisateur à warn',

@@ -5,6 +5,7 @@ module.exports = {
     name: 'suggestion',
     permissions: ['SEND_MESSAGES'],
     description : 'Créer un embed avec la suggestion',
+    help:'Cette commande permet de créer un embed avec votre suggestion\n\nUtilisation : /suggestion <suggestion>',
     options : [{
         name:'suggestion',
         description : 'Champ dans lequel la suggestion doit être écrite',
